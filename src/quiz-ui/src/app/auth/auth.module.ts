@@ -5,6 +5,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { FormsModule } from '@angular/forms';
+import { UserPageComponent } from './pages/user-page/user-page.component';
 
 const routes: Routes = [{
   path: 'login',
@@ -19,7 +20,8 @@ const routes: Routes = [{
 @NgModule({
   declarations: [
     RegisterPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    UserPageComponent
   ],
   imports: [
     CommonModule,

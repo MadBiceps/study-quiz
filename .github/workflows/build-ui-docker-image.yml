@@ -1,11 +1,11 @@
-name: Docker Image CI
+name: Docker Image Quiz-UI
 
 on:
   push:
     branches: [ "main" ]
     paths-ignore:
       - 'docs/**'
-      - 'src/quiz-ui'
+      - 'src/quiz-service'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -19,5 +19,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      working-directory: 'src/quiz-service'
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      working-directory: 'src/quiz-ui'
+      run: docker build . --file Dockerfile --tag quiz-ui:$(date +%s)

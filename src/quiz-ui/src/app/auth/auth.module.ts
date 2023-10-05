@@ -6,6 +6,7 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { FormsModule } from '@angular/forms';
 import { UserPageComponent } from './pages/user-page/user-page.component';
+import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
 
 const routes: Routes = [{
   path: 'login',
@@ -15,13 +16,22 @@ const routes: Routes = [{
   path: 'register',
   pathMatch: 'full',
   component: RegisterPageComponent
+}, {
+  path: 'profile',
+  pathMatch: 'full',
+  component: UserPageComponent
+}, {
+  path: 'logout',
+  pathMatch: 'full',
+  component: LogoutPageComponent
 }];
 
 @NgModule({
   declarations: [
     RegisterPageComponent,
     LoginPageComponent,
-    UserPageComponent
+    UserPageComponent,
+    LogoutPageComponent
   ],
   imports: [
     CommonModule,

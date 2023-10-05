@@ -1,0 +1,28 @@
+<div class="login-wrapper">
+  <form class="login">
+    <section class="title">
+      <!-- These could be heading elements. -->
+      <div class="welcome">IU Quiz</div>
+      <div class="hint">Quiz with other students</div>
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-sr-only">E-mail</label>
+        <input type="text" autocomplete="username" name="username" clrInput placeholder="Enter e-mail"
+          [(ngModel)]="form.username" />
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Password</label>
+        <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Enter password"
+          [(ngModel)]="form.password" />
+      </clr-password-container>
+      <clr-checkbox-wrapper>
+        <label>Remember me</label>
+        <input type="checkbox" name="rememberMe" clrCheckbox [(ngModel)]="form.rememberMe" />
+      </clr-checkbox-wrapper>
+      <div class="error active">Invalid user name or password</div>
+      <button type="submit" class="btn btn-primary">Log in</button>
+      <a routerLink="/auth/register" class="signup">Sign up for an account</a>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,4 @@
-name: Docker Image Quiz-UI
+name: Test Quiz-UI
 
 on:
   push:

@@ -1,1 +1,32 @@
-<p>dashboard-page works!</p>
+<div class="page-wrapper">
+  <div class="header-section">
+    <h1>Dashboard</h1>
+    <div class="subtitle">
+      <span>Welcome to the IUBH Quiz</span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="upper-section section">
+      <div class="clr-row">
+        <div class="clr-col">
+          <app-quiz-score-card title="Your Monthly Score" />
+        </div>
+        <div class="clr-col">
+          <app-quiz-score-card title="Your Team Score" actionTitle="Go to Team" />
+        </div>
+        <div class="clr-col">
+          <app-quiz-score-card title="Your Max Score" [actionTitle]="undefined" />
+        </div>
+      </div>
+    </div>
+    <div class="middle-section section">
+      <div class="section-title">
+        <h2>Your recent Quizzes</h2>
+      </div>
+    </div>
+    <div class="bottom-section section">
+      <div class="section-title">
+        <h2>Leaderboard</h2>
+      </div>
+    </div>
+  </div>

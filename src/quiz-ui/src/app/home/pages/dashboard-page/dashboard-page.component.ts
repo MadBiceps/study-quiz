@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent {
+
+  constructor(private router: Router) {}
+
+  public goToQuiz() {
+    this.router.navigate(['/quiz']);
+  }
 
 }

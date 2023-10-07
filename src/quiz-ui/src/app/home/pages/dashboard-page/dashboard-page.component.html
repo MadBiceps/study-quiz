@@ -23,10 +23,27 @@
       <div class="section-title">
         <h2>Your recent Quizzes</h2>
       </div>
+      <div class="section-contnet">
+        <app-recent-quiz-table />
+      </div>
     </div>
     <div class="bottom-section section">
       <div class="section-title">
         <h2>Leaderboard</h2>
+        <div class="section-content split-content">
+          <div>
+            <div class="subtitle">
+              <span> User Leaderboard </span>
+            </div>
+            <app-leaderboard-table class="element" />
+          </div>
+          <div>
+            <div class="subtitle">
+              <span> Team Leaderboard </span>
+            </div>
+            <app-team-leaderboard-table class="element" />
+          </div>
+        </div>
       </div>
     </div>
   </div>

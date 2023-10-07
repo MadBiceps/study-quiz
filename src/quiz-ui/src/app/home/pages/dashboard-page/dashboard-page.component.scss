@@ -27,3 +27,21 @@ app-quiz-score-card {
     padding-top: 1rem;
   }
 }
+
+.split-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  div {
+    .element {
+      width: 100%;
+    }
+    .subtitle {
+      padding-top: 0.5rem;
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+}

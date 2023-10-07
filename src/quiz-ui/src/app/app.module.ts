@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClarityModule } from '@clr/angular';
 import { CoreModule } from './core/core.module';
+import { ClarityIcons, userIcon, homeIcon, pencilIcon, talkBubblesIcon, trashIcon } from '@cds/core/icon';
+
+ClarityIcons.addIcons(userIcon, homeIcon, pencilIcon, talkBubblesIcon, trashIcon);
 
 @NgModule({
   declarations: [
@@ -14,7 +17,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     ClarityModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

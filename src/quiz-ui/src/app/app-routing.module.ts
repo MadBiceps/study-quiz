@@ -9,9 +9,17 @@ const routes: Routes = [{
   pathMatch: 'prefix',
   loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
 }, {
-  path: 'quiz',
+  path: 'quizzes',
   pathMatch: 'prefix',
   loadChildren: () => import('./quiz/quiz.module').then(m => m.QuizModule)
+}, {
+  path: 'teams',
+  pathMatch: 'prefix',
+  loadChildren: () => import('./team/team.module').then(m => m.TeamModule)
+}, {
+  path: 'error',
+  pathMatch: 'prefix',
+  loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
 }];
 
 @NgModule({

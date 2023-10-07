@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { QuizListPageComponent } from './pages/quiz-list-page/quiz-list-page.component';
 import { QuizDetailPageComponent } from './pages/quiz-detail-page/quiz-detail-page.component';
 import { Route, RouterModule } from '@angular/router';
+import { QuizListComponent } from './component/quiz-list/quiz-list.component';
 
 const routes: Route[] = [{
   path: '',
@@ -17,7 +18,8 @@ const routes: Route[] = [{
 @NgModule({
   declarations: [
     QuizListPageComponent,
-    QuizDetailPageComponent
+    QuizDetailPageComponent,
+    QuizListComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,33 @@
+.page-wrapper {
+  padding: 1rem;
+}
+
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+
+  .actions {
+    padding-top: 1rem;
+  }
+}
+
+.split-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.card {
+  padding: 0.3rem;
+  .card-header {
+    font-weight: 1rem;
+  }
+  .card-body {
+    text-align: center;
+    span {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    margin: 1rem;
+  }
+}

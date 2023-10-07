@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th class="left">Course ID</th>
+      <th class="left">Course Name</th>
+      <th class="left">Date</th>
+      <th class="left">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let quiz of quizzes">
+      <td class="left"> {{ quiz.courseId }} </td>
+      <td class="left"> {{ quiz.courseName }} </td>
+      <td class="left"> {{ quiz.date | date }} </td>
+      <td class="left"> {{ quiz.score }} Points </td>
+    </tr>
+  </tbody>
+</table>

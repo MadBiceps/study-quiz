@@ -20,6 +20,14 @@ const routes: Routes = [{
   path: 'error',
   pathMatch: 'prefix',
   loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
+}, {
+  path: 'search',
+  pathMatch: 'prefix',
+  loadChildren: () => import('./core/core.module').then(m => m.CoreModule)
+}, {
+  path: 'users',
+  pathMatch: 'prefix',
+  loadChildren: () => import('./user/user.module').then(m => m.UserModule)
 }];
 
 @NgModule({

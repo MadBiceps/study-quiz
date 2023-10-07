@@ -4,9 +4,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { ClarityModule } from '@clr/angular';
 import { Route, RouterModule } from '@angular/router';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Route[] = [{
-  path: 'search',
+  path: '',
   pathMatch: 'full',
   component: SearchPageComponent
 }];
@@ -19,7 +20,8 @@ const routes: Route[] = [{
   imports: [
     CommonModule,
     ClarityModule,
-    RouterModule
+    RouterModule.forChild(routes),
+    FormsModule
   ],
   exports: [
     HeaderComponent,

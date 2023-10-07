@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="left">Team ID</th>
+        <th class="left">Name</th>
+        <th class="left">Member count</th>
+        <th class="left">Creation Date</th>
+        <th class="left">Created by</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="selectable" *ngFor="let team of teams" [routerLink]="'/teams/' + team.id">
+        <td class="left data">{{ team.id }}</td>
+        <td class="left data">{{ team.name }}</td>
+        <td class="left data">{{ team.memberCount }}/{{ team.maxMemberCount }}</td>
+        <td class="left data">{{ team.creationDate | date }}</td>
+        <td class="left data">{{ team.createdBy }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

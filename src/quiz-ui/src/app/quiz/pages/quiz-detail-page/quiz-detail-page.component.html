@@ -1,1 +1,35 @@
-<p>quiz-detail-page works!</p>
+<div class="page-wrapper">
+  <div class="heading-section">
+    <div class="title">
+      <h1>{{ quiz.title }}</h1>
+      <span class="subtitle">Created by {{ quiz.createdBy.username }} on {{ quiz.createdAt | date }}</span>
+      <div class="description">
+        <span>
+          {{ quiz.description }}
+        </span>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">Do the Quiz</button>
+      <button type="button" class="btn btn-icon" aria-label="edit">
+        <cds-icon shape="pencil"></cds-icon>
+      </button>
+      <button type="button" class="btn btn-icon" aria-label="trash">
+        <cds-icon shape="trash"></cds-icon>
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="section">
+      <div class="section-header">
+        <h2>Questions</h2>
+        <button class="btn btn-primary">Add Question</button>
+      </div>
+      <app-question-list [questions]="quiz.questions"></app-question-list>
+    </div>
+    <div class="section">
+      <h2>Your Quiz attempts</h2>
+      <app-quiz-attemp-list />
+    </div>
+  </div>
+</div>

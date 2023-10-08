@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="left">ID</th>
+        <th class="left">Question</th>
+        <th class="left">Answer options</th>
+        <th class="left">Creation Date</th>
+        <th class="left">Creator</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="selectebal" *ngFor="let question of questions">
+        <td class="left">{{ question.id }}</td>
+        <td class="left">{{ question.label }}</td>
+        <td class="left">{{ question.answers.length }}</td>
+        <td class="left">{{ question.createdAt | date }}</td>
+        <td class="left">{{ question.creator.username }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

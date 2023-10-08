@@ -14,7 +14,7 @@ export interface Answer {
   id: string;
   label: string;
   reason?: string;
-  isCorrect: boolean;
+  isCorrect?: boolean;
   creator: User;
   createdAt: Date;
   editedBy: User;

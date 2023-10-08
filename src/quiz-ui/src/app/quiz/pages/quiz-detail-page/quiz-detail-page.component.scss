@@ -1,0 +1,27 @@
+.page-wrapper {
+  padding: 1rem;
+}
+
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+
+  .title {
+    .description {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .actions {
+    padding-top: 1rem;
+  }
+
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  button {
+    margin-top: 0.5rem;
+  }
+}

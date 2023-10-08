@@ -4,6 +4,9 @@ import { QuizListPageComponent } from './pages/quiz-list-page/quiz-list-page.com
 import { QuizDetailPageComponent } from './pages/quiz-detail-page/quiz-detail-page.component';
 import { Route, RouterModule } from '@angular/router';
 import { QuizListComponent } from './component/quiz-list/quiz-list.component';
+import { ClarityModule } from '@clr/angular';
+import { QuestionListComponent } from './component/question-list/question-list.component';
+import { QuizAttempListComponent } from './component/quiz-attemp-list/quiz-attemp-list.component';
 
 const routes: Route[] = [{
   path: '',
@@ -19,11 +22,14 @@ const routes: Route[] = [{
   declarations: [
     QuizListPageComponent,
     QuizDetailPageComponent,
-    QuizListComponent
+    QuizListComponent,
+    QuestionListComponent,
+    QuizAttempListComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ClarityModule
   ]
 })
 export class QuizModule { }

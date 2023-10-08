@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz-detail-page',
@@ -23,4 +24,15 @@ export class QuizDetailPageComponent {
       mail: 'Test',
     }
   };
+
+  constructor(
+    private router: Router
+  ) {
+
+  }
+
+  onStartQuiz() {
+    // TODO: Implement hear the quiz instance creation request
+    this.router.navigate([this.router.url, 'attempt', 'attemptId' ]);
+  }
 }

@@ -1,0 +1,122 @@
+.page-wrapper {
+  padding: 1rem;
+  .content {
+    .header-section {
+      display: flex;
+      justify-content: center;
+    }
+    .question-wrapper {
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      .question-title {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+      .question-block {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+    .answer-wrapper {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      transition: all 0.3s ease-in-out;
+      .answer-selected {
+        background-color: var(--cds-alias-object-interaction-background-selected);
+      }
+      .no-answer-selected {
+        background-color: var(--cds-alias-object-interaction-background);
+        &:hover {
+          background-color: var(--cds-alias-object-interaction-background-hover);
+          cursor: pointer;
+        }
+      }
+      .other-answer-selected {
+        background-color: var(--cds-alias-object-interaction-background);
+      }
+      .correct-answer {
+        background-color: var(--cds-alias-typography-success-hover);
+        h2 {
+          color: white;
+        }
+      }
+      .incorrect-answer {
+        color: white;
+        background-color: var(--cds-alias-typography-danger-hover);
+        h2 {
+          color: white;
+        }
+      }
+      .answer-block {
+        width: 100%;
+        border: 1px solid #ccc;
+        .question {
+          display: flex;
+          justify-content: center;
+          h2 {
+            font-size: larger;
+            margin: 1rem;
+          }
+        }
+        .comment {
+          display: flex;
+          justify-content: center;
+          margin: 1rem;
+          color: white;
+        }
+      }
+    }
+    
+    .actions {
+      width: 100%;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    height: 100%;
+  }
+
+  .content-start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    height: 100%;
+    .start-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      button {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .content-finish {
+    display: flex;
+    justify-content: center;
+    .evaluation {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+}

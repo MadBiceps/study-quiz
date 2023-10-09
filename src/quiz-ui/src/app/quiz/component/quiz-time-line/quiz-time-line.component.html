@@ -1,0 +1,5 @@
+<clr-timeline>
+  <clr-timeline-step *ngFor="let state of quizState" [clrState]="getQuestionStateStepState(state)">
+    <clr-timeline-step-header>{{ state.title }}</clr-timeline-step-header>
+  </clr-timeline-step>
+</clr-timeline>

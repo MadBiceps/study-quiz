@@ -1,0 +1,100 @@
+<div class="page-wrapper">
+  <div class="content" [ngSwitch]="status">
+    <ng-container *ngSwitchCase="'running'" #quiz>
+      <div class="header-section">
+      </div>
+      <div class="question-wrapper">
+        <div class="question-title">
+          <span>
+            Question {{currentQuestionId + 1}}/{{ questions.length }}
+          </span>
+        </div>
+        <div class="question-block">
+          <h1> {{ currentQuestion.title }} </h1>
+        </div>
+      </div>
+      <div class="answer-wrapper">
+        <div class="answer-block" *ngFor="let answer of currentQuestion.options"
+          [ngClass]="getQuestionCssCLass(answer.id)" (click)="onSelectAnswer(answer.id)">
+          <div class="question">
+            <h2> {{ answer.text }} </h2>
+          </div>
+          <div class="comment" *ngIf="questionState === 'result' && answer['comment'] !== undefined">
+            <span> {{ answer.comment }} </span>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" *ngIf="questionState === 'result' && currentQuestionId !== questions.length -1"
+          (click)="onNextQuestion()">Next
+          Question</button>
+        <button class="btn btn-primary" *ngIf="questionState === 'result' && currentQuestionId === questions.length - 1"
+          (click)="onNextQuestion()">Finish Quiz</button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'loading'" #loading>
+      <div class="loading">
+        <span class="spinner spinner-lg">Loading...</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'continue'" #continue>
+      <div class="content content-start">
+        <div>
+          <div class="start-header-section">
+            <h1> Ready to continue the quiz? </h1>
+          </div>
+          <div class="start-actions">
+            <button class="btn btn-primary" (click)="onStartQuiz()">Continue Quiz</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    '
+    <ng-container *ngSwitchCase="'start'" #start>
+      <div class="content content-start">
+        <div>
+          <div class="start-header-section">
+            <h1> Ready for the quiz? </h1>
+          </div>
+          <div class="start-actions">
+            <button class="btn btn-primary" (click)="onStartQuiz()">Start Quiz</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'finish'" #finished>
+      <div class="content content-finish">
+        <div>
+          <header-section>
+            <h1> Congratulations for finishing the Quiz! </h1>
+          </header-section>
+          <div class="evaluation">
+            <div class="evaluation-section">
+              <h2> Your Score: {{score}} Points</h2>
+              <span> You answered {{ correctQuestionCount / questions.length * 100 }}% correct </span>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" [routerLink]="'/'">Back to Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'error'" #error>
+      <div class="content content-start">
+        <div>
+          <div class="start-header-section">
+            <h1> {{ errorMessage }} </h1>
+          </div>
+          <div class="start-actions">
+            <button class="btn btn-primary" [routerLink]="'/'">Back to Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -6,6 +6,6 @@
     <span> {{ score }} Points </span>
   </div>
   <div class="actions">
-    <button class="btn btn-link" *ngIf="actionTitle"> {{ actionTitle }} </button>
+    <button class="btn btn-link" *ngIf="actionTitle" (click)="onAction()"> {{ actionTitle }} </button>
   </div>
 </div>

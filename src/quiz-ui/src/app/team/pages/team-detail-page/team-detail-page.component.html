@@ -7,10 +7,10 @@
     <div class="actions">
       <button class="btn btn-primary">Join</button>
       <button class="btn btn-outline">Leave</button>
-      <button type="button" class="btn btn-icon" aria-label="edit">
+      <button type="button" class="btn btn-icon" aria-label="edit" (click)="openEditModal()">
         <cds-icon shape="pencil"></cds-icon>
       </button>
-      <button type="button" class="btn btn-icon" aria-label="trash">
+      <button type="button" class="btn btn-icon" aria-label="trash" (click)="openDeleteModal()">
         <cds-icon shape="trash"></cds-icon>
       </button>
     </div>
@@ -45,3 +45,5 @@
     </div>
   </div>
 </div>
+<app-edit-team-modal [team]="team" [open]="editModelOpen" (close)="closeEditModal()" (updateTeam)="updateTeam($event)" />
+<app-delete-team-modal [team]="team" [open]="deleteModalOpen" (close)="closeDeleteModal()" (delete)="deleteTeam()" />

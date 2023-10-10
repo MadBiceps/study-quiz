@@ -7,6 +7,10 @@ import { TeamListComponent } from './components/team-list/team-list.component';
 import { ClarityModule } from '@clr/angular';
 import { TeamScoreListComponent } from './components/team-score-list/team-score-list.component';
 import { TeamMemberListComponent } from './components/team-member-list/team-member-list.component';
+import { AddTeamModalComponent } from './modals/add-team-modal/add-team-modal.component';
+import { EditTeamModalComponent } from './modals/edit-team-modal/edit-team-modal.component';
+import { DeleteTeamModalComponent } from './modals/delete-team-modal/delete-team-modal.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Route[] = [{
   path: '',
@@ -22,12 +26,16 @@ const routes: Route[] = [{
     TeamDetailPageComponent,
     TeamListComponent,
     TeamScoreListComponent,
-    TeamMemberListComponent
+    TeamMemberListComponent,
+    AddTeamModalComponent,
+    EditTeamModalComponent,
+    DeleteTeamModalComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ClarityModule
+    ClarityModule,
+    FormsModule
   ]
 })
 export class TeamModule { }

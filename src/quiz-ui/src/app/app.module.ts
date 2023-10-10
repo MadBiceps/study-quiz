@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ClarityModule } from '@clr/angular';
 import { CoreModule } from './core/core.module';
 import { ClarityIcons, userIcon, homeIcon, pencilIcon, talkBubblesIcon, trashIcon, angleIcon } from '@cds/core/icon';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 
 ClarityIcons.addIcons(userIcon, homeIcon, pencilIcon, talkBubblesIcon, trashIcon, angleIcon);
 
@@ -18,6 +19,8 @@ ClarityIcons.addIcons(userIcon, homeIcon, pencilIcon, talkBubblesIcon, trashIcon
     AppRoutingModule,
     ClarityModule,
     CoreModule,
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Team } from '../../models/team.model';
 
 @Component({
   selector: 'app-team-list',
@@ -6,12 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent {
-  public teams = [{
-    id: 'Test',
-    name: 'Test',
-    creationDate: new Date(),
-    createdBy: 'Max Mustermann',
-    memberCount: 5,
-    maxMemberCount: 10
-  }];
+  @Input() public teams: Team[] | undefined = [];
 }

@@ -11,7 +11,11 @@ export class DashboardPageComponent {
   constructor(private router: Router) {}
 
   public goToQuiz() {
-    this.router.navigate(['/quiz']);
+    this.router.navigate(['/quizzes']);
+  }
+
+  public goToTeam() {
+    this.router.navigate(['/teams']);
   }
 
 }

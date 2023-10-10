@@ -9,10 +9,10 @@
     <div class="upper-section section">
       <div class="clr-row">
         <div class="clr-col">
-          <app-quiz-score-card title="Your Monthly Score" />
+          <app-quiz-score-card title="Your Monthly Score" (action)="goToQuiz()" />
         </div>
         <div class="clr-col">
-          <app-quiz-score-card title="Your Team Score" actionTitle="Go to Team" />
+          <app-quiz-score-card title="Your Team Score" actionTitle="Go to Team" (action)="goToTeam()" />
         </div>
         <div class="clr-col">
           <app-quiz-score-card title="Your Max Score" [actionTitle]="undefined" />

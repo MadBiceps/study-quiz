@@ -1,0 +1,17 @@
+<div class="modal-wrapper">
+  <clr-modal [(clrModalOpen)]="open">
+    <h3 class="modal-title">Add Quiz-Teams</h3>
+    <div class="modal-body">
+      <form clrForm>
+        <clr-input-container>
+          <label>Team Name</label>
+          <input clrInput placeholder="Fill in your team name" name="name" [(ngModel)]="team.name" />
+        </clr-input-container>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onClose()">Cancel</button>
+      <button type="button" class="btn btn-primary" [disabled]="team.name === ''" (click)="onAddTeam()" >Save</button>
+    </div>
+  </clr-modal>
+</div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TeamScore } from '../../models/team.model';
 
 @Component({
   selector: 'app-team-score-list',
@@ -6,14 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./team-score-list.component.scss']
 })
 export class TeamScoreListComponent {
-  @Input() scores: {
-    id: string;
-    score: number;
-    date: Date;
-    user: {
-      id: string;
-      username: string;
-      mail: string;
-    }
-  }[] = [];
+  @Input() scores: TeamScore[] | undefined = [];
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { delay, of } from 'rxjs';
-import { QuestionState } from '../../component/quiz-time-line/quiz-time-line.component';
 
 export interface Question {
   id: string;

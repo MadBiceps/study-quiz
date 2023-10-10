@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="selectebal" *ngFor="let question of questions">
+      <tr class="selectable" *ngFor="let question of questions" (click)="onSelect(question)">
         <td class="left">{{ question.id }}</td>
         <td class="left">{{ question.label }}</td>
         <td class="left">{{ question.answers.length }}</td>

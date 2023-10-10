@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from 'src/app/core/models/question.model';
 
 @Component({
@@ -8,4 +8,9 @@ import { Question } from 'src/app/core/models/question.model';
 })
 export class QuestionListComponent {
   @Input() public questions: Question[] = [];
+  @Output() public select: EventEmitter<Question> = new EventEmitter();
+
+  onSelect(question: Question) {
+    this.select.emit(question);
+  }
 }

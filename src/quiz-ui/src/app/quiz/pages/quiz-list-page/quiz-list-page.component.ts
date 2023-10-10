@@ -7,12 +7,14 @@ import { Quiz } from 'src/app/core/models/quiz.model';
   styleUrls: ['./quiz-list-page.component.scss']
 })
 export class QuizListPageComponent {
+  public showAddModal = false;
+
   public quizzes: Quiz[] = [
     {
       id: 'Test',
       title: 'Test',
       description: 'Test',
-      question: [],
+      questions: [],
       questionCount: 5,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -26,4 +28,17 @@ export class QuizListPageComponent {
       }
     }
   ];
+
+  openAddModal() {
+    this.showAddModal = true;
+  }
+
+  closeAddModal() {
+    this.showAddModal = false;
+  }
+
+  addQuiz(quiz: Quiz) {
+    // TODO: Add quiz to the list
+    this.showAddModal = false;
+  }
 }

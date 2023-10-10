@@ -5,7 +5,7 @@ export interface Quiz {
   id: string;
   title: string;
   description: string;
-  question: Question[];
+  questions: Question[];
   questionCount: number;
   createdAt: Date;
   updatedAt: Date;

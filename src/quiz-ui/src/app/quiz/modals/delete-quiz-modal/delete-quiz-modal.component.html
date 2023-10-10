@@ -1,8 +1,8 @@
 <div class="modal-wrapper">
   <clr-modal [(clrModalOpen)]="open" [clrModalClosable]="false">
-    <h3 class="modal-title">Delete Quiz-Teams</h3>
+    <h3 class="modal-title">Delete Quiz</h3>
     <div class="modal-body">
-      <span> Are you shure that you want to delete the team {{ team.name }}? This action can't be undone </span>
+      <span> Are you shure that you want to delete the quiz {{ quiz.title }}? This action can't be undone </span>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline" (click)="onClose()">Cancel</button>

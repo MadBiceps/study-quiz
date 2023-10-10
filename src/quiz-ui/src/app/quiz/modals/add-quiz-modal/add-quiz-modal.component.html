@@ -1,0 +1,21 @@
+<div class="modal-wrapper">
+  <clr-modal [(clrModalOpen)]="open" [clrModalClosable]="false">
+    <h3 class="modal-title">Add Quiz</h3>
+    <div class="modal-body">
+      <form clrForm>
+        <clr-input-container>
+          <label>Quiz Name</label>
+          <input clrInput placeholder="Fill in your Quiz name" name="name" [(ngModel)]="quiz.title" required />
+        </clr-input-container>
+        <clr-textarea-container>
+          <label>Description</label>
+          <textarea clrTextarea [(ngModel)]="quiz.description" name="description" required></textarea>
+        </clr-textarea-container>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onClose()">Cancel</button>
+      <button type="button" class="btn btn-primary" [disabled]="quiz.title === '' || quiz.description === ''" (click)="onAdd()" >Save</button>
+    </div>
+  </clr-modal>
+</div>

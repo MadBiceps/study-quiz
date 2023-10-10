@@ -1,0 +1,49 @@
+<div class="page-wrapper">
+  <div class="header-section">
+    <h1>Dashboard</h1>
+    <div class="subtitle">
+      <span>Welcome to the IUBH Quiz</span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="upper-section section">
+      <div class="clr-row">
+        <div class="clr-col">
+          <app-quiz-score-card title="Your Monthly Score" (action)="goToQuiz()" />
+        </div>
+        <div class="clr-col">
+          <app-quiz-score-card title="Your Team Score" actionTitle="Go to Team" (action)="goToTeam()" />
+        </div>
+        <div class="clr-col">
+          <app-quiz-score-card title="Your Max Score" [actionTitle]="undefined" />
+        </div>
+      </div>
+    </div>
+    <div class="middle-section section">
+      <div class="section-title">
+        <h2>Your recent Quizzes</h2>
+      </div>
+      <div class="section-contnet">
+        <app-recent-quiz-table />
+      </div>
+    </div>
+    <div class="bottom-section section">
+      <div class="section-title">
+        <h2>Leaderboard</h2>
+        <div class="section-content split-content">
+          <div>
+            <div class="subtitle">
+              <span> User Leaderboard </span>
+            </div>
+            <app-leaderboard-table class="element" />
+          </div>
+          <div>
+            <div class="subtitle">
+              <span> Team Leaderboard </span>
+            </div>
+            <app-team-leaderboard-table class="element" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

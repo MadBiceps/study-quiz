@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th class="left">Position</th>
+      <th class="left">Name</th>
+      <th class="left">Week</th>
+      <th class="left">Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let leader of leaderList">
+      <td class="left"> {{ leader.position }} </td>
+      <td class="left"> {{ leader.username }} </td>
+      <td class="left"> {{ leader.week }} </td>
+      <td class="left"> {{ leader.score }} Points </td>
+    </tr>
+  </tbody>
+</table>

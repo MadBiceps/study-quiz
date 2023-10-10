@@ -1,0 +1,14 @@
+<div class="page-wrapper">
+  <div class="heading-section">
+    <div class="title">
+      <h1> Quizzes </h1>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" (click)="openAddModal()">Add Quiz</button>
+    </div>
+  </div>
+  <div class="content">
+    <app-quiz-list [quizzes]="quizzes" />
+  </div>
+</div>
+<app-add-quiz-modal [open]="showAddModal" (close)="closeAddModal()" (add)="addQuiz($event)" />

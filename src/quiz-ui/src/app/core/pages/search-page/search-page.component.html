@@ -1,0 +1,106 @@
+<div class="page-wrapper">
+  <div class="header-section">
+    <h1>Search Results for "{{ searchTerm }}"</h1>
+  </div>
+  <div class="content-section">
+    <div class="search-type-section">
+      <div class="search-type-title">
+        <h2>Quizzes</h2>
+      </div>
+      <div class="search-results">
+        <ng-container *ngIf="quizzesSearchResults$ | async as searchResults; else loading">
+          <ng-container *ngIf="searchResults.length > 0; else noResults">
+            <div [routerLink]="['/quizzes', result.id]" class="search-result-item" *ngFor="let result of searchResults">
+              <div class="start-section">
+                <div class="search-result-item-title">
+                  <a>{{ result.name }}</a>
+                </div>
+                <div class="search-result-item-description">
+                  {{ result.description }}
+                </div>
+              </div>
+              <div class="action">
+                <cds-icon shape="angle"></cds-icon>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noResults>
+          <div class="search-result-item">
+            <div class="search-result-item-title">
+              No results found
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="search-type-section">
+      <div class="search-type-title">
+        <h2>Teams</h2>
+      </div>
+      <div class="search-results">
+        <ng-container *ngIf="teamsSearchResults$ | async as searchResults; else loading">
+          <ng-container *ngIf="searchResults.length > 0; else noResults">
+            <div class="search-result-item" [routerLink]="['/teams', result.id]" *ngFor="let result of searchResults">
+              <div class="start-section">
+                <div class="search-result-item-title">
+                  <a>{{ result.name }} ({{result.memberCount}}/{{result.maxMemberCount}})</a>
+                </div>
+                <div class="search-result-item-description">
+                  Created by {{ result.createdBy }}
+                </div>
+              </div>
+              <div class="action">
+                <cds-icon shape="angle"></cds-icon>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noResults>
+          <div class="search-result-item">
+            <div class="search-result-item-title">
+              No results found
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="search-type-section">
+      <div class="search-type-title">
+        <h2>Users</h2>
+      </div>
+      <div class="search-results">
+        <ng-container *ngIf="usersSearchResults$ | async as searchResults; else loading">
+          <ng-container *ngIf="searchResults.length > 0; else noResults">
+            <div [routerLink]="['/users', result.id]" class="search-result-item" *ngFor="let result of searchResults">
+              <div class="start-section">
+                <div class="search-result-item-title">
+                  <a>{{ result.name }}</a>
+                </div>
+                <div class="search-result-item-description">
+                  {{ result.email }}
+                </div>
+              </div>
+              <div class="action">
+                <cds-icon shape="angle"></cds-icon>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-template #noResults>
+          <div class="search-result-item">
+            <div class="search-result-item-title">
+              No results found
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="search-result laoding-wrapper">
+    <clr-spinner clrInline>Searching</clr-spinner>
+  </div>
+</ng-template>

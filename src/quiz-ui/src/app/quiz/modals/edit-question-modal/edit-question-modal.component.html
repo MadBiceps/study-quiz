@@ -1,0 +1,72 @@
+
+<div class="modal-wrapper" *ngIf="question">
+  <clr-modal [(clrModalOpen)]="open" [clrModalClosable]="false">
+    <h3 class="modal-title">Edit a Question of a Quiz</h3>
+    <div class="modal-body">
+      <form clrForm>
+        <div class="question-content">
+          <clr-textarea-container>
+            <label>Question</label>
+            <textarea clrTextarea [(ngModel)]="question.label" name="Question Label" required></textarea>
+            <clr-control-helper>Make your question exact so that everybody can understand it</clr-control-helper>
+            <clr-control-error *clrIfError="'required'">Please provide the question content.</clr-control-error>
+          </clr-textarea-container>
+        </div>
+        <div class="awnser-content">
+          <div class="awnser-header">
+            <h4>Answers</h4>
+          </div>
+
+          <clr-textarea-container>
+            <label>Answer Option</label>
+            <textarea clrTextarea [(ngModel)]="answer.label" name="Awnser label" required></textarea>
+            <clr-control-helper>Make your answer exact so that everybody can understand it</clr-control-helper>
+          </clr-textarea-container>
+
+          <clr-textarea-container>
+            <label>Answer Reason</label>
+            <textarea clrTextarea [(ngModel)]="answer.reason" name="Awnser reason"></textarea>
+          </clr-textarea-container>
+
+          <div class="awnser-footer">
+            <clr-toggle-container>
+              <clr-toggle-wrapper>
+                <input type="checkbox" clrToggle name="options" [(ngModel)]="answer.isCorrect" />
+                <label>Correct Answer</label>
+              </clr-toggle-wrapper>
+            </clr-toggle-container>
+            <button type="button" class="btn btn-primary" [disabled]="answer.label === ''" (click)="addAnswer()">Add Answer</button>
+          </div>
+
+          <div class="awnser-list">
+            <h5>Created Answers</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="left">Answer Label</th>
+                  <th class="left">Reason</th>
+                  <th class="left">Is correct?</th>
+                  <th class="left"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let answer of question.answers">
+                  <td class="left">{{ answer.label }}</td>
+                  <td class="left">{{ answer.reason }}</td>
+                  <td class="left">{{ answer.isCorrect ? 'Yes' : 'No' }}</td>
+                  <td class="left">
+                    <cds-icon (click)="removeAnswer(answer.id)" shape="trash"></cds-icon>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline" (click)="onClose()">Cancel</button>
+      <button type="button" class="btn btn-primary" [disabled]="question.label === '' || !checkAnswers()" (click)="onUpdate()">Save</button>
+    </div>
+  </clr-modal>
+</div>

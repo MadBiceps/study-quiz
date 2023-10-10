@@ -1,0 +1,49 @@
+<div class="page-wrapper">
+  <div class="heading-section">
+    <div class="title">
+      <h1>{{ team.name }} ({{ team.memberCount }}/{{ team.maxMemberCount }})</h1>
+      <span class="subtitle">Created by {{ team.createdBy }} on {{ team.creationDate | date }}</span>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary">Join</button>
+      <button class="btn btn-outline">Leave</button>
+      <button type="button" class="btn btn-icon" aria-label="edit" (click)="openEditModal()">
+        <cds-icon shape="pencil"></cds-icon>
+      </button>
+      <button type="button" class="btn btn-icon" aria-label="trash" (click)="openDeleteModal()">
+        <cds-icon shape="trash"></cds-icon>
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="section split-section">
+      <!-- Add here charts for the team peformance and position -->
+      <div class="card">
+        <div class="card-header">
+          Current Team Score
+        </div>
+        <div class="card-body">
+          <span>{{ team.currentScore }} Points</span> 
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          Team Performance by time
+        </div>
+        <div class="card-body">
+
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Scores</h2>
+      <app-team-score-list [scores]="team.scores" />
+    </div>
+    <div class="section">
+      <h2>Members</h2>
+      <app-team-member-list [members]="team.members" />
+    </div>
+  </div>
+</div>
+<app-edit-team-modal [team]="team" [open]="editModelOpen" (close)="closeEditModal()" (updateTeam)="updateTeam($event)" />
+<app-delete-team-modal [team]="team" [open]="deleteModalOpen" (close)="closeDeleteModal()" (delete)="deleteTeam()" />

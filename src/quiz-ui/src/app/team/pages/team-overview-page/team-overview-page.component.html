@@ -1,0 +1,14 @@
+<div class="page-wrapper">
+  <div class="heading-section">
+    <div class="title">
+      <h1> Teams </h1>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" (click)="onAddTeam()">Add Team</button>
+    </div>
+  </div>
+  <div class="content">
+    <app-team-list />
+  </div>
+</div>
+<app-add-team-modal [open]="addTeamOpen" (close)="onCloseAddTeam" (addTeam)="addTeam($event)" />

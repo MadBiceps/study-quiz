@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core';import '@cds/core/icon/register.js';
 
 @Component({
   selector: 'app-root',

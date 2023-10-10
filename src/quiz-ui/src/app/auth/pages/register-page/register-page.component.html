@@ -1,0 +1,36 @@
+<div class="login-wrapper">
+  <form class="login">
+    <section class="title">
+      <!-- These could be heading elements. -->
+      <div class="welcome">IU Quiz</div>
+      <div class="hint">Quiz with other students</div>
+    </section>
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-sr-only">Username</label>
+        <input type="text" autocomplete="username" name="username" clrInput placeholder="Enter username"
+          [(ngModel)]="form.username" />
+      </clr-input-container>
+      <clr-input-container>
+        <label class="clr-sr-only">E-mail</label>
+        <input type="text" autocomplete="email" name="email" clrInput placeholder="Enter e-mail"
+          [(ngModel)]="form.mail" />
+      </clr-input-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Password</label>
+        <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Enter password"
+          [(ngModel)]="form.password" />
+      </clr-password-container>
+      <clr-password-container>
+        <label class="clr-sr-only">Confirm Password</label>
+        <input type="password" autocomplete="confirm-password" name="password" clrPassword placeholder="Confirm password"
+          [(ngModel)]="form.confirmPassword" />
+      </clr-password-container>
+      <div class="error active">Username already taken</div>
+      <div class="error active">User account with Mail already exist</div>
+      <div class="error active" *ngIf="form.password !== form.confirmPassword">Passwords are not the same</div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <a routerLink="/auth/login" class="signup">Login into a existing account</a>
+    </div>
+  </form>
+</div>

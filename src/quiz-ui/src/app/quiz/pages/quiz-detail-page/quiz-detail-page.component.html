@@ -1,0 +1,39 @@
+<div class="page-wrapper">
+  <div class="heading-section">
+    <div class="title">
+      <h1>{{ quiz.title }}</h1>
+      <span class="subtitle">Created by {{ quiz.createdBy.username }} on {{ quiz.createdAt | date }}</span>
+      <div class="description">
+        <span>
+          {{ quiz.description }}
+        </span>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" (click)="onStartQuiz()">Do the Quiz</button>
+      <button type="button" class="btn btn-icon" aria-label="edit" (click)="onUpdate()">
+        <cds-icon shape="pencil"></cds-icon>
+      </button>
+      <button type="button" class="btn btn-icon" aria-label="trash" (click)="onDelete()">
+        <cds-icon shape="trash"></cds-icon>
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="section">
+      <div class="section-header">
+        <h2>Questions</h2>
+        <button class="btn btn-primary" (click)="onAddQuestion()">Add Question</button>
+      </div>
+      <app-question-list [questions]="quiz.questions" (select)="onUpdateQuestion($event)"></app-question-list>
+    </div>
+    <div class="section">
+      <h2>Your Quiz attempts</h2>
+      <app-quiz-attemp-list />
+    </div>
+  </div>
+</div>
+<app-update-quiz-modal [open]="showUpdateModal" [quiz]="quiz" (update)="update($event)" (close)="close()" />
+<app-delete-quiz-modal [open]="showDeleteModal" [quiz]="quiz" (delete)="deleteQuiz()" (close)="close()" />
+<app-add-question-modal [open]="showAddQuestionModal" (add)="createQuestion($event)" (close)="close()" />
+<app-edit-question-modal [open]="showUpdateQuestionModal" [question]="selectedQuestion" (update)="updateQuestion($event)" (close)="close()" />

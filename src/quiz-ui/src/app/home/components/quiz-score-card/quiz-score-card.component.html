@@ -1,0 +1,11 @@
+<div class="quiz-score">
+  <div class="header-section">
+    <h4> {{ title }} </h4>
+  </div>
+  <div class="content">
+    <span> {{ score }} Points </span>
+  </div>
+  <div class="actions">
+    <button class="btn btn-link" *ngIf="actionTitle" (click)="onAction()"> {{ actionTitle }} </button>
+  </div>
+</div>

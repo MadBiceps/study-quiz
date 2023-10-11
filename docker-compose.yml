@@ -1,8 +1,8 @@
-version: '3.3'
+version: "3.8"
 
 services:
   traefik:
-    image: traefik:v2.5
+    image: traefik:2.9.1
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
@@ -10,11 +10,12 @@ services:
       - "--entrypoints.web.address=:80"
     ports:
       - "80:80"
-      - "8080:8080"
+      - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./configs/:/etc/traefik/
-      - ./certificates/:/etc/traefik/acme/
+      - ./configs/traefik.yml:/etc/traefik/traefik.yml
+      - ./configs/dynamic:/etc/traefik/dynamic
+      - ./certificates/acme.json:/etc/traefik/acme/acme.json
   quiz-iu:
     image: ghcr.io/madbiceps/quiz-ui:main
     restart: always
@@ -30,3 +31,9 @@ services:
       - "traefik.http.routers.quiz-ui-http.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui-http.entrypoints=web"
       - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
+    networks:
+      - routing
+
+networks:
+  routing:
+    driver: bridge

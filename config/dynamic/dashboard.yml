@@ -1,7 +1,7 @@
 http:
   routers:
     traefik:
-      rule: Host(`reverse-proxy.somedomain.com`)
+      rule: Host(`study-quiz.com`)
       entryPoints:
         - websecure
       service: api@internal

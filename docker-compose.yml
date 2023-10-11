@@ -13,9 +13,8 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./configs/traefik.yml:/etc/traefik/traefik.yml
-      - ./configs/dynamic:/etc/traefik/dynamic
-      - ./certificates/acme.json:/etc/traefik/acme/acme.json
+      - ./configs/:/etc/traefik/
+      - ./certificates/:/etc/traefik/acme/
   quiz-iu:
     image: ghcr.io/madbiceps/quiz-ui:main
     restart: always

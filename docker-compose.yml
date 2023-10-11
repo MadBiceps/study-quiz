@@ -22,7 +22,7 @@ services:
       - "traefik.enable=true"
       - "traefik.port=80"
       - "traefik.docker.network=quiz-ui"
-      - traefik.http.services.quiz-ui.loadbalancer.server.port=3000
+      - "traefik.http.services.quiz-ui.loadbalancer.server.port=80"
       # https
       - "traefik.http.routers.quiz-ui.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui.tls=true"

@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  traefik:
+    image: traefik:v2.5
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./configs/traefik.yml:/etc/traefik/traefik.yml
+      - ./configs/dynamic:/etc/traefik/dynamic
+      - ./certificates/acme.json:/etc/traefik/acme/acme.json
+  quiz-iu:
+    image: docker pull ghcr.io/madbiceps/quiz-ui:main
+    name: quiz-ui
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=quiz-ui"
+      # https
+      - "traefik.http.routers.quiz-ui.rule=Host(`study-quiz.com`)"
+      - "traefik.http.routers.quiz-ui.tls=true"
+      - "traefik.http.routers.quiz-ui.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.quiz-ui.entrypoints=websecure"
+      # http (redirect to https)
+      - "traefik.http.routers.quiz-ui-http.rule=Host(`study-quiz.com`)"
+      - "traefik.http.routers.quiz-ui-http.entrypoints=web"
+      - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
+    networks:
+      - frontend

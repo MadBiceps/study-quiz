@@ -30,7 +30,7 @@ certificatesResolvers:
       tlschallenge: true
       httpchallenge:
         entrypoint: web
-      email: mail@somedomain.com
+      email: fabian@fischerdev.com
       storage: /etc/traefik/acme/acme.json
 
 api:

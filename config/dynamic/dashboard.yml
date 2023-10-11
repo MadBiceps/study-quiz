@@ -10,7 +10,7 @@ http:
       tls:
         certResolver: letsencrypt
     traefik-http-redirect:
-      rule: Host(`reverse-proxy.somedomain.com`)
+      rule: Host(`study-quiz.com`)
       entryPoints:
         - web
       service: api@internal

@@ -1,7 +1,7 @@
 http:
   routers:
     traefik:
-      rule: Host(`study-quiz.com`)
+      rule: Host(`traefik.study-quiz.com`)
       entryPoints:
         - websecure
       service: api@internal
@@ -10,7 +10,7 @@ http:
       tls:
         certResolver: letsencrypt
     traefik-http-redirect:
-      rule: Host(`study-quiz.com`)
+      rule: Host(`traefik.study-quiz.com`)
       entryPoints:
         - web
       service: api@internal

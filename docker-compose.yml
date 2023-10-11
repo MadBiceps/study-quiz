@@ -18,10 +18,9 @@ services:
   quiz-iu:
     image: ghcr.io/madbiceps/quiz-ui:main
     restart: always
-    ports:
-      - "3000:80"
     labels:
       - "traefik.enable=true"
+      - "traefik.port=80"
       - "traefik.docker.network=quiz-ui"
       - traefik.http.services.quiz-ui.loadbalancer.server.port=3000
       # https
@@ -33,6 +32,8 @@ services:
       - "traefik.http.routers.quiz-ui-http.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui-http.entrypoints=web"
       - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
+    networks:
+      - routing
 
 networks:
   routing:

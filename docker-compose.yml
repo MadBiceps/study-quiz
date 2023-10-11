@@ -33,3 +33,6 @@ services:
       - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
     networks:
       - frontend
+
+networks:
+  - frontend:

@@ -3,11 +3,7 @@ version: "3.8"
 services:
   traefik:
     image: traefik:2.9.1
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+    restart: always
     ports:
       - "80:80"
       - "443:443"

@@ -1,19 +1,40 @@
-api:
-  dashboard: true
+## static configuration
+
+global:
+  # Send anonymous usage data
+  sendAnonymousUsage: false
 
 entryPoints:
-  http:
+  web:
+    address: ":80"
+  websecure:
     address: ":443"
+
+# Access logs
+# accessLog: fields:
+#   headers:
+#     names:
+#       User-Agent: keep
 
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
 
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: fabian@fischerdev.com
-      storage: /letsencrypt/acme.json
-      httpChallenge:
-        entryPoint: http
+      tlschallenge: true
+      httpchallenge:
+        entrypoint: web
+      email: mail@somedomain.com
+      storage: /etc/traefik/acme/acme.json
+
+api:
+  dashboard: true
+
+log:
+  level: ERROR

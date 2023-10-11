@@ -31,8 +31,3 @@ services:
       - "traefik.http.routers.quiz-ui-http.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui-http.entrypoints=web"
       - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
-    networks:
-      - frontend
-
-networks:
-  - frontend:

@@ -18,7 +18,6 @@ services:
       - ./certificates/acme.json:/etc/traefik/acme/acme.json
   quiz-iu:
     image: docker pull ghcr.io/madbiceps/quiz-ui:main
-    name: quiz-ui
     restart: always
     labels:
       - "traefik.enable=true"

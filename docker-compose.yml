@@ -18,10 +18,11 @@ services:
       - ./certificates/acme.json:/etc/traefik/acme/acme.json
   quiz-iu:
     image: docker pull ghcr.io/madbiceps/quiz-ui:main
+    name: quiz-ui
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=reverse-proxy-docker-traefik_routing"
+      - "traefik.docker.network=quiz-ui"
       # https
       - "traefik.http.routers.quiz-ui.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui.tls=true"
@@ -31,3 +32,5 @@ services:
       - "traefik.http.routers.quiz-ui-http.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui-http.entrypoints=web"
       - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
+    networks:
+      - frontend

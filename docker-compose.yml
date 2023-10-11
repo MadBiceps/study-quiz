@@ -17,7 +17,7 @@ services:
       - ./configs/dynamic:/etc/traefik/dynamic
       - ./certificates/acme.json:/etc/traefik/acme/acme.json
   quiz-iu:
-    image: docker pull ghcr.io/madbiceps/quiz-ui:main
+    image: ghcr.io/madbiceps/quiz-ui:main
     restart: always
     labels:
       - "traefik.enable=true"

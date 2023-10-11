@@ -12,6 +12,9 @@ services:
       - ./configs/traefik.yml:/etc/traefik/traefik.yml
       - ./configs/dynamic:/etc/traefik/dynamic
       - ./certificates/acme.json:/etc/traefik/acme/acme.json
+    networks:
+      - routing
+  
   quiz-iu:
     image: ghcr.io/madbiceps/quiz-ui:main
     restart: always
@@ -20,6 +23,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=quiz-ui"
+      - traefik.http.services.quiz-ui.loadbalancer.server.port=3000
       # https
       - "traefik.http.routers.quiz-ui.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui.tls=true"
@@ -29,8 +33,6 @@ services:
       - "traefik.http.routers.quiz-ui-http.rule=Host(`study-quiz.com`)"
       - "traefik.http.routers.quiz-ui-http.entrypoints=web"
       - "traefik.http.routers.quiz-ui-http.middlewares=redirect-to-https@file"
-    networks:
-      - routing
 
 networks:
   routing:

@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
     paths-ignore:
       - 'docs/**'
-      - 'src/quiz-ui'
+      - 'src/quiz-ui/**'
     paths:
       - 'src/quiz-service/**'
   pull_request:

@@ -1,25 +1,58 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Reflection;
+using Serilog;
+using Serilog.Exceptions;
 
-// Add services to the container.
+namespace quiz_service;
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public static class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public static void Main(string[] args)
+    {
+        ConfigureLogging();
+        CreateHost(args);
+    }
+
+    private static void CreateHost(string[] args)
+    {
+        try
+        {
+            Log.Information($"Starting {Assembly.GetExecutingAssembly().GetName().Name}");
+            CreateHostBuilder(args).ConfigureAppConfiguration(conf => {
+                conf.AddEnvironmentVariables("QUIZ-API_");
+            }).Build().Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal($"Failed to start {Assembly.GetExecutingAssembly().GetName().Name}", ex);
+            throw;
+        }
+    }
+
+    private static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args).UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+    
+    private static void ConfigureLogging()
+    {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile(
+                $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json",
+                optional: true)
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .Enrich.FromLogContext()
+            .Enrich.WithExceptionDetails()
+            .Enrich.WithMachineName()
+            .WriteTo.Debug()
+            .WriteTo.Console()
+            .Enrich.WithProperty("Environment", environment)
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

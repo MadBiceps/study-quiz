@@ -5,17 +5,16 @@ on:
     branches: [ "main" ]
     paths-ignore:
       - 'docs/**'
-      - 'src/quiz-service'
+      - 'src/quiz-service/**'
+    paths:
+      - 'src/quiz-ui/**'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image

@@ -3,9 +3,6 @@ name: Test Quiz-UI
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - 'docs/**'
-      - 'src/quiz-service/**'
     paths:
       - 'src/quiz-ui/**'
   pull_request:

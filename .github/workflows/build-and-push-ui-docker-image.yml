@@ -4,6 +4,8 @@ name: Create and publish a Docker image
 # Configures this workflow to run every time a change is pushed to the branch called `release`.
 on:
   push:
+    paths:
+      - 'src/quiz-ui/**'
     tags:
       - 'v*.*.*'
   workflow_dispatch:

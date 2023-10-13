@@ -3,9 +3,8 @@ name: Test Quiz-Service
 on:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - 'docs/**'
-      - 'src/quiz-ui'
+    paths:
+      - 'src/quiz-service/**'
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:

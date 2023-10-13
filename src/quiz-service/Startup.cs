@@ -32,7 +32,7 @@ public class Startup
 
     public IWebHostEnvironment Env { get; set; }
 
-    public ILogger Logger = Log.Logger;
+    public readonly ILogger Logger = Log.Logger;
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -96,7 +96,10 @@ public class Startup
         // Migrate EF Core
         try
         {
-            dbContext.Database.MigrateAsync().Wait();
+            if (dbContext.Database.IsRelational())
+            {
+                dbContext.Database.MigrateAsync().Wait();
+            }
         }
         catch (Exception e)
         {

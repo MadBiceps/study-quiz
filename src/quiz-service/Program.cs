@@ -1,9 +1,10 @@
 using System.Reflection;
-using quiz_service;
 using Serilog;
 using Serilog.Exceptions;
 
-public class Program
+namespace quiz_service;
+
+public static class Program
 {
     public static void Main(string[] args)
     {

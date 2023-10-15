@@ -1,9 +1,14 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.IdentityModel.Tokens;
 using Prometheus;
 using quiz_service.Extensions;
 using quiz_service.Middleware;
+using quiz_service.Models.Database;
 using quiz_service.Persistence;
 using Serilog;
 using Serilog.Exceptions;
@@ -39,6 +44,30 @@ public class Startup
         // register HttpClientFactoryService
         services.AddHttpClient();
         services.AddDataProvider(Configuration);
+        
+        // Add authentication
+        services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(options =>
+        {
+            options.SaveToken = true;
+            options.RequireHttpsMetadata = false;
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidAudience = Configuration["JWT:ValidAudience"],
+                ValidIssuer = Configuration["JWT:ValidIssuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+            };
+        });
+        
         services.AddController();
         services.AddSwagger();
     }
@@ -53,7 +82,6 @@ public class Startup
 
         app.UseSerilogRequestLogging();
         app.UseHttpsRedirection();
-        //app.UseMiddleware<RequestResponseLoggingMiddleware>();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
         app.UseHealthChecks("/api/health", new HealthCheckOptions
@@ -86,7 +114,8 @@ public class Startup
 
         app.UseRouting();
         app.UseHttpMetrics();
-        // app.UseAuthorization();
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

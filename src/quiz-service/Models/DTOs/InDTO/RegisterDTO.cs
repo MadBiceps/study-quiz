@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace quiz_service.Models.DTOs;
+namespace quiz_service.Models.DTOs.InDTO;
 
 public class RegisterDTO
 {

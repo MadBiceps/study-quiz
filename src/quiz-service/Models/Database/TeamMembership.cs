@@ -13,5 +13,5 @@ public class TeamMembership
 
     public DateTime Joined { get; set; }
 
-    public DateTime Left { get; set; }
+    public DateTime? Left { get; set; }
 }

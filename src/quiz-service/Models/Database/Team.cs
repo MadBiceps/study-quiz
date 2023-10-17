@@ -13,5 +13,5 @@ public class Team
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual ApplicationUser User { get; set; }
+    public virtual ApplicationUser Creator { get; set; }
 }

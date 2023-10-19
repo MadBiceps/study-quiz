@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using quiz_service.Models.Database;
+using quiz_service.Services.User;
 
 namespace quiz_service.Controllers;
 
@@ -6,4 +8,7 @@ namespace quiz_service.Controllers;
 [ApiController]
 public class ApiController : ControllerBase
 {
+    public ApiController()
+    {
+    }
 }

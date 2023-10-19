@@ -13,5 +13,5 @@ public class AttemptAnswer
     
     public DateTime AnsweredAt { get; set; }
     
-    public bool Score { get; set; }
+    public int Score { get; set; }
 }

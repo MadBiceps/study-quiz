@@ -28,17 +28,11 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
         // TODO: Add here infos for api
         var info = new OpenApiInfo
         {
-            Title = "BMG Portal Core API",
+            Title = "Study Quiz API",
             Version = description.ApiVersion.ToString(),
-            Description = "API Description of the BMG Core API",
-            Contact = new OpenApiContact { Name = "Fabian Fischer", Email = "fabian.fischer3@bosch.com" },
-            TermsOfService = new Uri("http://www.bosch.com"),
-            License = new OpenApiLicense
-            {
-                Name = "Bosch Internal Open Source License Version 4",
-                Url = new Uri("https://inside-docupedia.bosch.com/confluence/pages/viewpage.action?pageId=415469322")
-            }
-
+            Description = "API Description of the Study-Quiz API",
+            Contact = new OpenApiContact { Name = "Fabian Fischer", Email = "fabian@fischerdev.com" },
+            TermsOfService = new Uri("https://study-quiz.com"),
         };
 
         if (description.IsDeprecated)

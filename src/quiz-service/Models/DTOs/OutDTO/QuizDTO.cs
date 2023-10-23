@@ -9,6 +9,6 @@ public class QuizDTO
     public UserDTO Creator { get; set; }
     public UserDTO? UpdatedBy { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     public List<QuizAttemptDTO>? Attempts { get; set; }
 }

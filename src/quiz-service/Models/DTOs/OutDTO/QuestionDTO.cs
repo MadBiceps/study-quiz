@@ -9,5 +9,5 @@ public class QuestionDTO
     public UserDTO Creator { get; set; }
     public DateTime? EditedAt { get; set; }
     public UserDTO? EditedBy { get; set; }
-    public List<AnswerDTO> Answer { get; set; }
+    public List<AnswerDTO> Answers { get; set; }
 }

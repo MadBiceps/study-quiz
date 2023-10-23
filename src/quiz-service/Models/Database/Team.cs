@@ -8,6 +8,8 @@ public class Team
     public Guid Id { get; set; }
 
     public string Name { get; set; }
+    
+    public virtual List<QuizAttempt> QuizAttempts { get; set; }
 
     public virtual List<TeamMembership> Member { get; set; }
 

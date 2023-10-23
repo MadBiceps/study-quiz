@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using quiz_service.Models.Database;
-using quiz_service.Models.DTOs;
 using quiz_service.Models.DTOs.InDTO;
 using quiz_service.Models.DTOs.OutDTO;
 
@@ -75,7 +74,7 @@ public class AuthController : ApiController
         return !result.Succeeded
             ? StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseDTO
-                    { Status = "Error", Message = "User creation failed! Please check user details and try again." })
+                    { Status = "Error", Message = result.Errors.First().Description })
             : Ok(new ResponseDTO { Status = "Success", Message = "User created successfully!" });
     }
 }

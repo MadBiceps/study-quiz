@@ -6,7 +6,7 @@ public class QuizAttemptDTO
     public Guid QuizId { get; set; }
     public List<AttemptQuestionDTO> Questions { get; set; }
     public UserDTO User { get; set; }
-    public Guid TeamId { get; set; }
+    public Guid? TeamId { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? FinishedAt { get; set; }
 }

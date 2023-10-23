@@ -11,7 +11,7 @@ public class Answer
     
     public string Reason { get; set; }
 
-    public bool isCorrect { get; set; }
+    public bool IsCorrect { get; set; }
 
     public virtual ApplicationUser Creator { get; set; }
 

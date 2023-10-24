@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Team } from '../../models/team.model';
+import { TeamService } from 'src/app/services/team.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-team-overview-page',
@@ -8,6 +10,13 @@ import { Team } from '../../models/team.model';
 })
 export class TeamOverviewPageComponent {
   public addTeamOpen = false;
+  public teams$: Observable<Team[] | null>;
+
+  constructor(
+    private teamService: TeamService
+  ) {
+    this.teams$ = this.teamService.get(undefined, undefined, undefined);
+  }
 
   public onAddTeam(): void {
     this.addTeamOpen = true;

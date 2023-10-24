@@ -54,4 +54,17 @@ export class AuthService {
   public set token(token: AuthToken) {
     localStorage.setItem("token", JSON.stringify(token));
   }
+
+  public isLoggedIn() {
+    var tokenString = localStorage.getItem('token');
+    if (tokenString === null) {
+      return false;
+    }
+
+    var token = JSON.parse(tokenString) as AuthToken;
+    if(token.expiration < new Date()) {
+      return false;
+    }
+    return true;
+  }
 }

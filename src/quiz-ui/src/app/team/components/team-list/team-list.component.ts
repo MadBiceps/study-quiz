@@ -7,5 +7,5 @@ import { Team } from '../../models/team.model';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent {
-  @Input() public teams: Team[] | undefined = [];
+  @Input() public teams: Team[] | null = [];
 }

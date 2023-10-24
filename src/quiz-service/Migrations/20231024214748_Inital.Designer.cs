@@ -12,8 +12,8 @@ using quiz_service.Persistence;
 namespace quiz_service.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231022091116_FixTypes")]
-    partial class FixTypes
+    [Migration("20231024214748_Inital")]
+    partial class Inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

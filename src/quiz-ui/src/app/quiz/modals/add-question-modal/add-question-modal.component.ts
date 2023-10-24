@@ -31,6 +31,7 @@ export class AddQuestionModalComponent {
   public question: Question = {
     id: '',
     label: '',
+    hint: '',
     answers: [],
     creator: {
       username: '',

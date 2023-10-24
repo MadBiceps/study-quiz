@@ -14,6 +14,7 @@ export class QuizAttemptService {
   ) { }
 
   public get(searchTerm: string | undefined, page: number | undefined, pageSize: number | undefined) {
+    // TODO: Implement http params
     return this.apiService.MakeSecureGetRequest<QuizAttempt[]>('v1/quiz-attempts').pipe(map(x => x.body));
   }
 

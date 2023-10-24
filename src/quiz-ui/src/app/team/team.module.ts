@@ -11,7 +11,6 @@ import { AddTeamModalComponent } from './modals/add-team-modal/add-team-modal.co
 import { EditTeamModalComponent } from './modals/edit-team-modal/edit-team-modal.component';
 import { DeleteTeamModalComponent } from './modals/delete-team-modal/delete-team-modal.component';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
 const routes: Route[] = [{
   path: '',

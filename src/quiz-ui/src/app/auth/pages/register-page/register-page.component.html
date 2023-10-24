@@ -26,10 +26,10 @@
         <input type="password" autocomplete="confirm-password" name="password" clrPassword placeholder="Confirm password"
           [(ngModel)]="form.confirmPassword" />
       </clr-password-container>
-      <div class="error active">Username already taken</div>
-      <div class="error active">User account with Mail already exist</div>
+      <div *ngIf="error !== undefined" class="error active">{{ error }}</div>
+      <div *ngIf="validError !== undefined" class="error active"> {{ validError }} </div>
       <div class="error active" *ngIf="form.password !== form.confirmPassword">Passwords are not the same</div>
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!valid" (click)="register()">Register</button>
       <a routerLink="/auth/login" class="signup">Login into a existing account</a>
     </div>
   </form>

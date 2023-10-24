@@ -16,12 +16,8 @@
         <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Enter password"
           [(ngModel)]="form.password" />
       </clr-password-container>
-      <clr-checkbox-wrapper>
-        <label>Remember me</label>
-        <input type="checkbox" name="rememberMe" clrCheckbox [(ngModel)]="form.rememberMe" />
-      </clr-checkbox-wrapper>
       <div class="error active">Invalid user name or password</div>
-      <button type="submit" class="btn btn-primary">Log in</button>
+      <button type="submit" class="btn btn-primary" (click)="login()">Log in</button>
       <a routerLink="/auth/register" class="signup">Sign up for an account</a>
     </div>
   </form>

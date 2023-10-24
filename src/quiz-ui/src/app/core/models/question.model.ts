@@ -3,6 +3,7 @@ import { User } from "./user.model";
 export interface Question {
   id: string;
   label: string;
+  hint: string;
   answers: Answer[];
   creator: User;
   createdAt: Date;

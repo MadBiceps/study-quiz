@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth-service.service';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent {
+  public success = false;
   public error: string | undefined;
   public form = {
     username: '',
@@ -21,7 +22,10 @@ export class LoginPageComponent {
   login() {
     this.authService.login(this.form.username, this.form.password).subscribe(x => {
       if('token' in x) {
-        this.router.navigate(['/']);
+        this.success = true;
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 3000);
       } else {
         x = x as Message;
         this.error = x.message;

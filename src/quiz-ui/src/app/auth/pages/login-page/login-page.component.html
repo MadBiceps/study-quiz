@@ -7,8 +7,8 @@
     </section>
     <div class="login-group">
       <clr-input-container>
-        <label class="clr-sr-only">E-mail</label>
-        <input type="text" autocomplete="username" name="username" clrInput placeholder="Enter e-mail"
+        <label class="clr-sr-only">Username</label>
+        <input type="text" name="username" clrInput placeholder="Enter username"
           [(ngModel)]="form.username" />
       </clr-input-container>
       <clr-password-container>
@@ -16,7 +16,12 @@
         <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Enter password"
           [(ngModel)]="form.password" />
       </clr-password-container>
-      <div class="error active">Invalid user name or password</div>
+      <div *ngIf="error !== undefined" class="error active">{{ error }}</div>
+      <clr-alert *ngIf="success" [clrAlertType]="'success'">
+        <clr-alert-item>
+          <span class="alert-text">Login successful!</span>
+        </clr-alert-item>
+      </clr-alert>
       <button type="submit" class="btn btn-primary" (click)="login()">Log in</button>
       <a routerLink="/auth/register" class="signup">Sign up for an account</a>
     </div>

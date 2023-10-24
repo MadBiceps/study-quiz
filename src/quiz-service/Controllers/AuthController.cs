@@ -10,7 +10,7 @@ using quiz_service.Models.DTOs.OutDTO;
 
 namespace quiz_service.Controllers;
 
-[Route("/api/v1/authenticate")]
+[Route("authenticate")]
 public class AuthController : ApiController
 {
     private readonly UserManager<ApplicationUser> _userManager;

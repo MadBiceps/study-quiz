@@ -30,7 +30,7 @@ export class AuthService {
   public register(username: string, mail: string, password: string) {
     return this.httpClient.post<Message>(environment.apiUrl + 'v1/authenticate/register', {
       username: username,
-      mail: mail,
+      email: mail,
       password: password
     });
   }

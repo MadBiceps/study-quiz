@@ -43,12 +43,12 @@ export class AuthService {
     }
 
     var token = JSON.parse(tokenString) as AuthToken;
-    if(token.expiration < new Date()) {
+    if(new Date(token.expiration) < new Date()) {
       this.router.navigate(['/auth/login']);
       return '';
     }
 
-    return token.token;
+    return 'Bearer ' + token.token;
   }
 
   public set token(token: AuthToken) {

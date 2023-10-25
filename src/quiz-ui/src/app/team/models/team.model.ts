@@ -6,8 +6,8 @@ export interface Team {
   members: TeamMember[] | undefined;
   memberCount: number;
   maxMemberCount: number;
-  createdBy: User;
-  creationDate: Date;
+  creator: User;
+  createdAt: Date;
   scores: TeamScore[] | undefined;
   currentScore: number;
 }

@@ -14,8 +14,8 @@ export class AddTeamModalComponent {
   public team: Team = {
     id: '',
     name: '',
-    creationDate: new Date(),
-    createdBy: {
+    createdAt: new Date(),
+    creator: {
       username: '',
       mail: ''
     },

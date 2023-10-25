@@ -13,8 +13,8 @@ export class TeamDetailPageComponent {
   public team: Team = {
     id: 'Test',
     name: 'Test',
-    creationDate: new Date(),
-    createdBy: {
+    createdAt: new Date(),
+    creator: {
       username: 'Max Mustermann',
       mail: 'test@test.com'
     },

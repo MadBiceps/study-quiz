@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -44,7 +45,10 @@ public class TeamController : ApiController
     [HttpPost("")]
     public async Task<IActionResult> CreateTeamAsync([FromBody] InTeamDTO teamDto)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         
@@ -56,7 +60,10 @@ public class TeamController : ApiController
     [HttpPut("{teamId:guid}")]
     public async Task<IActionResult> UpdateTeamAsync(Guid teamId, [FromBody] InTeamDTO teamDto)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var teamDb = await _teamService.GetByIdAsync(teamId);
@@ -72,7 +79,10 @@ public class TeamController : ApiController
     [HttpDelete("{teamId:guid}")]
     public async Task<IActionResult> DeleteTeamAsync(Guid teamId)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var teamDb = await _teamService.GetByIdAsync(teamId);

@@ -41,6 +41,8 @@ public class TeamService : ITeamService
     {
         team.Id = Guid.NewGuid();
         team.Creator = user;
+        team.CreatedAt = DateTime.Now;
+        team.QuizAttempts = new List<QuizAttempt>();
 
         var result = await _dbContext.AddAsync(team);
         await _dbContext.SaveChangesAsync();

@@ -2,7 +2,7 @@
   <div class="heading-section">
     <div class="title">
       <h1>{{ team.name }} ({{ team.memberCount }}/{{ team.maxMemberCount }})</h1>
-      <span class="subtitle">Created by {{ team.createdBy }} on {{ team.creationDate | date }}</span>
+      <span class="subtitle">Created by {{ team.creator.username }} on {{ team.createdAt | date }}</span>
     </div>
     <div class="actions">
       <button class="btn btn-primary">Join</button>

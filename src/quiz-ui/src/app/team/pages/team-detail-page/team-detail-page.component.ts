@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/team.model';
 import { treeFeaturesFactory } from '@clr/angular/data/tree-view/tree-features.service';
 import { TeamService } from 'src/app/services/team.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorService } from 'src/app/services/error.service';
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -24,7 +24,8 @@ export class TeamDetailPageComponent implements OnInit {
     private errorService: ErrorService,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
-    private teamUserService: TeamUserService
+    private teamUserService: TeamUserService,
+    private router: Router
   ) {
   }
 
@@ -113,8 +114,14 @@ export class TeamDetailPageComponent implements OnInit {
   }
 
   updateTeam(team: Team) {
-    // TODO: Add update rutine
     this.editModelOpen = false;
+    if(this.team !== undefined) {
+      this.teamService.update(this.team).subscribe(resp => {
+        if(resp !== null) {
+          this.team = resp;
+        }
+      })
+    }
   }
 
   openDeleteModal() {
@@ -126,8 +133,12 @@ export class TeamDetailPageComponent implements OnInit {
   }
 
   deleteTeam() {
-    // TODO: Add delete rutine
     this.deleteModalOpen = false;
+    if(this.team !== undefined) {
+      this.teamService.delete(this.team).subscribe(() => {
+        this.router.navigate(['/teams']);
+      });
+    }
   }
 
 }

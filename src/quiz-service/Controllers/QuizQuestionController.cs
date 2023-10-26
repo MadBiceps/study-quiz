@@ -44,7 +44,10 @@ public class QuizQuestionController : ApiController
     [HttpPost("")]
     public async Task<IActionResult> CreateAsync(Guid quizId, [FromBody] InQuestionDTO questionModel)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         
@@ -58,7 +61,10 @@ public class QuizQuestionController : ApiController
     [HttpPut("{questionId:guid}")]
     public async Task<IActionResult> UpdateAsync(Guid quizId, Guid questionId, [FromBody] InQuestionDTO questionModel)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
 

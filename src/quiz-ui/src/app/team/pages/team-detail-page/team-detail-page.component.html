@@ -1,16 +1,16 @@
-<div class="page-wrapper">
+<div class="page-wrapper" *ngIf="team !== undefined; else loading">
   <div class="heading-section">
     <div class="title">
       <h1>{{ team.name }} ({{ team.memberCount }}/{{ team.maxMemberCount }})</h1>
       <span class="subtitle">Created by {{ team.creator.username }} on {{ team.createdAt | date }}</span>
     </div>
     <div class="actions">
-      <button class="btn btn-primary">Join</button>
-      <button class="btn btn-outline">Leave</button>
-      <button type="button" class="btn btn-icon" aria-label="edit" (click)="openEditModal()">
+      <button class="btn btn-primary" *ngIf="canJoin" [disabled]="team.maxMemberCount === team.memberCount" (click)="onJoin()">Join</button>
+      <button class="btn btn-outline" *ngIf="canLeave" (click)="onLeave()">Leave</button>
+      <button type="button" class="btn btn-icon" aria-label="edit" *ngIf="isOwner" (click)="openEditModal()">
         <cds-icon shape="pencil"></cds-icon>
       </button>
-      <button type="button" class="btn btn-icon" aria-label="trash" (click)="openDeleteModal()">
+      <button type="button" class="btn btn-icon" aria-label="trash" *ngIf="isOwner" (click)="openDeleteModal()">
         <cds-icon shape="trash"></cds-icon>
       </button>
     </div>
@@ -45,5 +45,14 @@
     </div>
   </div>
 </div>
-<app-edit-team-modal [team]="team" [open]="editModelOpen" (close)="closeEditModal()" (updateTeam)="updateTeam($event)" />
-<app-delete-team-modal [team]="team" [open]="deleteModalOpen" (close)="closeDeleteModal()" (delete)="deleteTeam()" />
+
+<ng-template #loading>
+  <div class="loading-wrapper">
+    <span class="spinner">Loading...</span>
+  </div>
+</ng-template>
+
+<div *ngIf="team !== undefined">
+  <app-edit-team-modal [team]="team" [open]="editModelOpen" (close)="closeEditModal()" (updateTeam)="updateTeam($event)" />
+  <app-delete-team-modal [team]="team" [open]="deleteModalOpen" (close)="closeDeleteModal()" (delete)="deleteTeam()" />
+</div>

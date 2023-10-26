@@ -28,7 +28,10 @@ public class QuizAttemptController : ApiController
     [HttpGet("")]
     public async Task<IActionResult> GetByUserAsync()
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var attempts = await _quizAttemptService.GetByUserAsync(currentUser);
@@ -63,7 +66,10 @@ public class QuizAttemptController : ApiController
     [HttpPost("")]
     public async Task<IActionResult> CreateAsync([FromBody] InQuizAttemptDTO quizAttemptDto)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var attempt = await _quizAttemptService.SetupAsync(quizAttemptDto.QuizId, currentUser);
@@ -74,7 +80,10 @@ public class QuizAttemptController : ApiController
     [HttpPut("{attemptId:guid}")]
     public async Task<IActionResult> QuizAsync(Guid attemptId, [FromBody] InQuizAnswerDTO quizAnswer)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var attempt =

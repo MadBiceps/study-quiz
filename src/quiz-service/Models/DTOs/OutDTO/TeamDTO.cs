@@ -4,7 +4,7 @@ public class TeamDTO
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public List<TeamMemberDTO>? TeamMember { get; set; }
+    public List<TeamMemberDTO>? Members { get; set; }
     public DateTime CreatedAt { get; set; }
     public UserDTO Creator { get; set; }
     public int MemberCount { get; set; }

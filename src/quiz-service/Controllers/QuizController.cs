@@ -44,7 +44,10 @@ public class QuizController : ApiController
     [HttpPost("")]
     public async Task<IActionResult> CreateQuizAsync([FromBody] InQuizDTO quizDto)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var quiz = await _quizService.CreateAsync(_mapper.Map<Quiz>(quizDto), currentUser);
@@ -55,7 +58,10 @@ public class QuizController : ApiController
     [HttpPut("{quizId:guid}")]
     public async Task<IActionResult> UpdateQuizAsync(Guid quizId, [FromBody] InQuizDTO quizDto)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var quizDb = await _quizService.GetByIdAsync(quizId);
@@ -69,7 +75,10 @@ public class QuizController : ApiController
     [HttpDelete("{quizId:guid}")]
     public async Task<IActionResult> DeleteQuizAsync(Guid quizId)
     {
-        var currentUser = await _userManager.GetUserAsync(User);
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
+            return Unauthorized();
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
         var quizDb = await _quizService.GetByIdAsync(quizId);

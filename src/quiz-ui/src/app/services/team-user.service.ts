@@ -13,11 +13,11 @@ export class TeamUserService {
   ) { }
 
   public get(teamId: string) {
-    return this.apiService.MakeSecureGetRequest<TeamMember[]>('v1/teams/' + teamId + 'users').pipe(map(x => x.body));
+    return this.apiService.MakeSecureGetRequest<TeamMember[]>('v1/teams/' + teamId + '/users').pipe(map(x => x.body));
   }
 
   public join(teamId: string) {
-    return this.apiService.MakeSecurePostRequest<TeamMember[]>('v1/teams/' + teamId + 'users', null).pipe(map(x => x.body));
+    return this.apiService.MakeSecurePostRequest<TeamMember[]>('v1/teams/' + teamId + '/users', null).pipe(map(x => x.body));
   }
 
   public remove(teamId: string, username: string) {

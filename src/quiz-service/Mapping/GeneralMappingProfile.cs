@@ -36,7 +36,8 @@ public class GeneralMappingProfile : Profile
         // Out Mapping
         CreateMap<ApplicationUser, UserDTO>()
             .ForMember(dest => dest.Username, opt => opt.MapFrom(x => x.UserName))
-            .ForMember(dest => dest.Mail, opt => opt.MapFrom(x => x.Email));
+            .ForMember(dest => dest.Mail, opt => opt.MapFrom(x => x.Email))
+            .ForMember(dest => dest.TeamId, opt => opt.MapFrom(x => x.Memberships.FirstOrDefault(y => y.Left == null).Team.Id));
 
         CreateMap<Team, TeamDTO>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))
@@ -44,8 +45,8 @@ public class GeneralMappingProfile : Profile
             .ForMember(dest => dest.Creator, opt => opt.MapFrom(x => x.Creator))
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(x => x.CreatedAt))
             .ForMember(dest => dest.MaxMemberCount, opt => opt.MapFrom(x => 10))
-            .ForMember(dest => dest.MemberCount, opt => opt.MapFrom(x => x.Member.Count(x => x.Left != null)))
-            .ForMember(dest => dest.TeamMember, opt => opt.MapFrom(x => x.Member))
+            .ForMember(dest => dest.MemberCount, opt => opt.MapFrom(x => x.Member.Count(y => y.Left == null)))
+            .ForMember(dest => dest.Members, opt => opt.MapFrom(x => x.Member.Where(y => y.Left == null)))
             .ForMember(dest => dest.Scores, opt => opt.MapFrom(x => x.QuizAttempts));
 
         CreateMap<QuizAttempt, TeamScoreDTO>()

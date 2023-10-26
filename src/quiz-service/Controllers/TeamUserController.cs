@@ -40,10 +40,13 @@ public class TeamUserController : ApiController
     [HttpPost("")]
     public async Task<IActionResult> JoinAsync(Guid teamId)
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null)
+        var currentUserName = User.Identity?.Name;
+        if (currentUserName == null)
             return Unauthorized();
-        var team = await _teamUserService.AddAsync(teamId, user);
+        var currentUser = await _userManager.FindByNameAsync(currentUserName);
+        if (currentUser == null)
+            return Unauthorized();
+        var team = await _teamUserService.AddAsync(teamId, currentUser);
         return Ok(_mapper.Map<List<TeamMemberDTO>>(team.Member));
     }
 

@@ -1,42 +1,108 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Team } from '../../models/team.model';
 import { treeFeaturesFactory } from '@clr/angular/data/tree-view/tree-features.service';
+import { TeamService } from 'src/app/services/team.service';
+import { ActivatedRoute } from '@angular/router';
+import { ErrorService } from 'src/app/services/error.service';
+import { User } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/services/user.service';
+import { TeamUserService } from 'src/app/services/team-user.service';
 
 @Component({
   selector: 'app-team-detail-page',
   templateUrl: './team-detail-page.component.html',
   styleUrls: ['./team-detail-page.component.scss']
 })
-export class TeamDetailPageComponent {
+export class TeamDetailPageComponent implements OnInit {
   public editModelOpen = false;
   public deleteModalOpen = false;
-  public team: Team = {
-    id: 'Test',
-    name: 'Test',
-    createdAt: new Date(),
-    creator: {
-      username: 'Max Mustermann',
-      mail: 'test@test.com'
-    },
-    memberCount: 5,
-    maxMemberCount: 10,
-    currentScore: 500,
-    members: [{
-      id: 'Test',
-      username: 'Max',
-      mail: 'test@test.com',
-      joined: new Date()
-    }],
-    scores: [{
-      id: 'Test',
-      score: 100,
-      date: new Date(),
-      user: {
-        username: 'Max',
-        mail: 'test@test.com'
+  public team: Team | undefined;
+  public user: User | undefined;
+
+  constructor(
+    private teamService: TeamService,
+    private errorService: ErrorService,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private teamUserService: TeamUserService
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      const teamId = params['teamId'];
+      this.teamService.getById(teamId).subscribe(team => {
+        if(team !== null) {
+          this.team = team;
+        } else {
+          this.errorService.displayError('Error while fetching team. Please try again later.');
+        }
+      }, error => {
+        this.errorService.displayError(`Error while fetching team. Status ${error['status']}. Please try again later.`);
+      });
+    });
+
+    this.userService.getCurrentUserInfo().subscribe(resp => {
+      if (resp !== null) {
+        this.user = resp;
       }
-    }]
-  };
+    });
+  }
+
+  get canJoin() {
+    if(this.user !== null && this.team != null) {
+      return this.user?.teamId !== this.team.id;
+    }
+    return false;
+  }
+
+  get canLeave() {
+    if(this.user !== null && this.team != null) {
+      return this.user?.teamId === this.team.id;
+    }
+    return false;
+  }
+
+  get isOwner() {
+    if(this.user !== null && this.team != null) {
+      return this.user?.username === this.team.creator.username;
+    }
+    return false;
+  }
+
+  onJoin() {
+    if(this.team !== undefined) {
+      this.teamUserService.join(this.team.id).subscribe(() => {
+        this.teamService.getById(this.team!.id).subscribe(resp => {
+          if(resp != null) {
+            this.team = resp;
+          }
+        });
+        this.userService.getCurrentUserInfo().subscribe(resp => {
+          if(resp !== null) {
+            this.user = resp;
+          }
+        });
+      })
+    }
+  }
+
+  onLeave() {
+    if(this.team !== undefined && this.user !== undefined) {
+      this.teamUserService.remove(this.team.id, this.user.username).subscribe(() => {
+        this.teamService.getById(this.team!.id).subscribe(resp => {
+          if(resp != null) {
+            this.team = resp;
+          }
+        });
+        this.userService.getCurrentUserInfo().subscribe(resp => {
+          if(resp !== null) {
+            this.user = resp;
+          }
+        });
+      })
+    }
+  }
 
   openEditModal() {
     this.editModelOpen = true;

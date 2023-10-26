@@ -21,9 +21,9 @@ public class TeamUserService : ITeamUserService
     public async Task<Models.Database.Team> AddAsync(Guid teamId, ApplicationUser user)
     {
         // Check if user already in team
-        if (user.Memberships.Any(x => x.Left != null))
+        if (user.Memberships.Any(x => x.Left == null))
         {
-            var activeMembership = user.Memberships.First(x => x.Left != null);
+            var activeMembership = user.Memberships.First(x => x.Left == null);
             activeMembership.Left = DateTime.Now;
             _dbContext.Update(activeMembership);
             await _dbContext.SaveChangesAsync();
@@ -34,14 +34,15 @@ public class TeamUserService : ITeamUserService
         if (team.Member.Count(x => x.Left == null) >= 10)
             throw new TooManyTeamMemberException(teamId);
         
-        team.Member.Add(new TeamMembership
+        await _dbContext.AddAsync(new TeamMembership
         {
             Id = Guid.NewGuid(),
             Joined = DateTime.Now,
-            User = user
+            User = user,
+            Team = team,
+            Left = null
         });
 
-        _dbContext.Update(team);
         await _dbContext.SaveChangesAsync();
 
         return team;

@@ -22,22 +22,22 @@ export class QuizService {
 
     // TODO: Implement http params
 
-    return this.apiService.MakeSecureGetRequest<Team[]>('v1/quizzes').pipe(map(x => x.body));
+    return this.apiService.MakeSecureGetRequest<Quiz[]>('v1/quizzes').pipe(map(x => x.body));
   }
 
   public getById(id: string) {
-    return this.apiService.MakeSecureGetRequest<Team>('v1/quizzes/' + id).pipe(map(x => x.body));
+    return this.apiService.MakeSecureGetRequest<Quiz>('v1/quizzes/' + id).pipe(map(x => x.body));
   }
 
   public create(quiz: Quiz) {
-    return this.apiService.MakeSecurePostRequest<Team>('v1/quizzes', {
+    return this.apiService.MakeSecurePostRequest<Quiz>('v1/quizzes', {
       title: quiz.title,
       description: quiz.description
     }).pipe(map(x => x.body));
   }
 
   public update(quiz: Quiz) {
-    return this.apiService.MakeSecurePutRequest<Team>('v1/quizzes/' + quiz.id, {
+    return this.apiService.MakeSecurePutRequest<Quiz>('v1/quizzes/' + quiz.id, {
       title: quiz.title,
       description: quiz.description
     }).pipe(map(x => x.body));

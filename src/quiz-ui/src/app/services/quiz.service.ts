@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Team } from '../team/models/team.model';
 import { Quiz } from '../core/models/quiz.model';
 import { map } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +15,19 @@ export class QuizService {
   ) { }
 
   public get(searchTerm: string | undefined, page: number | undefined, pageSize: number | undefined) {
+    let query = new HttpParams();
+    if (searchTerm !== undefined && searchTerm !== '') {
+      query = query.set('searchTerm', searchTerm);
+    }
 
-    /*if(searchTerm !== undefined)
-    {
-      searchTerm.
-    }*/
 
-    // TODO: Implement http params
+    if (page !== undefined && pageSize !== undefined) {
+      query = query.set('page', page);
+      query = query.set('pageSize', pageSize);
+    }
 
-    return this.apiService.MakeSecureGetRequest<Quiz[]>('v1/quizzes').pipe(map(x => x.body));
+
+    return this.apiService.MakeSecureGetRequest<Quiz[]>('v1/quizzes', query).pipe(map(x => x.body));
   }
 
   public getById(id: string) {

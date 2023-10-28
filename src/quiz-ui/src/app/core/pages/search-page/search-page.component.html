@@ -13,7 +13,7 @@
             <div [routerLink]="['/quizzes', result.id]" class="search-result-item" *ngFor="let result of searchResults">
               <div class="start-section">
                 <div class="search-result-item-title">
-                  <a>{{ result.name }}</a>
+                  <a>{{ result.title }}</a>
                 </div>
                 <div class="search-result-item-description">
                   {{ result.description }}
@@ -47,7 +47,7 @@
                   <a>{{ result.name }} ({{result.memberCount}}/{{result.maxMemberCount}})</a>
                 </div>
                 <div class="search-result-item-description">
-                  Created by {{ result.createdBy }}
+                  Created by {{ result.creator.username }}
                 </div>
               </div>
               <div class="action">
@@ -65,7 +65,7 @@
         </ng-template>
       </div>
     </div>
-    <div class="search-type-section">
+    <!--<div class="search-type-section">
       <div class="search-type-title">
         <h2>Users</h2>
       </div>
@@ -96,7 +96,7 @@
         </ng-template>
       </div>
     </div>
-  </div>
+  </div>-->
 </div>
 
 <ng-template #loading>

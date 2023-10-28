@@ -14,16 +14,16 @@ export class TeamService {
   ) { }
 
   public get(searchTerm: string | undefined, page: number | undefined, pageSize: number | undefined) {
-    let param = new HttpParams();
-    
-    /*if(searchTerm !== undefined)
-    {
-      searchTerm.
-    }*/
+    let query = new HttpParams();
+    if(searchTerm !== undefined && searchTerm !== '')
+      query = query.set('searchTerm', searchTerm);
 
-    // TODO: Implement http params
+    if (page !== undefined && pageSize !== undefined) {
+      query = query.set('page', page);
+      query =query.set('pageSize', pageSize);
+    }
 
-    return this.apiService.MakeSecureGetRequest<Team[]>('v1/teams').pipe(map(x => x.body));
+    return this.apiService.MakeSecureGetRequest<Team[]>('v1/teams', query).pipe(map(x => x.body));
   }
 
   public getById(id: string) {

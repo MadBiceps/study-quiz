@@ -49,6 +49,11 @@ public class QuizQuestionService : IQuizQuestionService
     {
         var questionDb = await GetByIdAsync(quizId, question.Id);
         
+        _dbContext.RemoveRange(questionDb.Answers);
+        await _dbContext.SaveChangesAsync();
+
+        questionDb = await GetByIdAsync(quizId, question.Id);
+        
         questionDb.Answers = question.Answers;
         questionDb.EditedAt = DateTime.Now;
         questionDb.EditedBy = user;

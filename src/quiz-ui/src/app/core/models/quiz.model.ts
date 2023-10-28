@@ -9,6 +9,6 @@ export interface Quiz {
   questionCount: number;
   createdAt: Date;
   updatedAt: Date;
-  createdBy: User;
+  creator: User;
   updatedBy: User;
 }

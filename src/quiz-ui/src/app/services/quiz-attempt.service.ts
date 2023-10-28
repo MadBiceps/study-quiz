@@ -31,7 +31,7 @@ export class QuizAttemptService {
   }
 
   public create(quizId: string) {
-    return this.apiService.MakeSecurePostRequest<QuizAttempt>('v1/quiz-attempts' {
+    return this.apiService.MakeSecurePostRequest<QuizAttempt>('v1/quiz-attempts', {
       quizId: quizId
     }).pipe(map(x => x.body));
   }

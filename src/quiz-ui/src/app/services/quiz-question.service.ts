@@ -36,7 +36,7 @@ export class QuizQuestionService {
   }
 
   public update(quizId: string, question: Question) {
-    return this.apiService.MakeSecurePostRequest<Question>('v1/quizzes/' + quizId + '/questions/' + question.id, {
+    return this.apiService.MakeSecurePutRequest<Question>('v1/quizzes/' + quizId + '/questions/' + question.id, {
       label: question.label,
       hint: question.hint,
       answers: question.answers.map(x => {

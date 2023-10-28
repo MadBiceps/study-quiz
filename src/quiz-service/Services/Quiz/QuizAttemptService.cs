@@ -21,22 +21,8 @@ public class QuizAttemptService : IQuizAttemptService
     public async Task<QuizAttempt> SetupAsync(Guid quizId, ApplicationUser user)
     {
         var quiz = await _quizService.GetByIdAsync(quizId);
-        if (quiz.Questions.Count > 10)
+        if (quiz.Questions.Count < 10)
             throw new NotEnoughQuestionException(quizId);
-        var selectedQuestions = new List<Question>();
-
-        var rnd = new Random();
-        for (var i = 0; i < 11; i++)
-        {
-            var inserted = false;
-            while (!inserted)
-            {
-                var index = rnd.Next(0, quiz.Questions.Count - 1);
-                if (selectedQuestions.Contains(quiz.Questions[index])) continue;
-                selectedQuestions.Add(quiz.Questions[index]);
-                inserted = true;
-            }
-        }
 
         var quizAttempt = new QuizAttempt
         {
@@ -46,7 +32,7 @@ public class QuizAttemptService : IQuizAttemptService
             CreatedAt = DateTime.Now,
             FinishedAt = null,
             Team = user.Memberships.FirstOrDefault(x => x.Left == null)?.Team,
-            Questions = selectedQuestions.Select(x => new AttemptQuestion
+            Questions = quiz.Questions.OrderBy(x => Random.Shared.Next()).Take(10).Select(x => new AttemptQuestion
             {
                 Id = Guid.NewGuid(),
                 Question = x,

@@ -16,7 +16,7 @@ public class GeneralMappingProfile : Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(x => x.Name))
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(x => DateTime.MinValue));
 
-        CreateMap<InQuestionDTO, QuestionDTO>()
+        CreateMap<InQuestionDTO, Question>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Empty))
             .ForMember(dest => dest.Label, opt => opt.MapFrom(x => x.Label))
             .ForMember(dest => dest.Hint, opt => opt.MapFrom(x => x.Hint))
@@ -89,7 +89,7 @@ public class GeneralMappingProfile : Profile
             .ForMember(dest => dest.Label, opt => opt.MapFrom(x => x.Hint))
             .ForMember(dest => dest.Hint, opt => opt.MapFrom(x => x.Hint))
             .ForMember(dest => dest.Answers, opt => opt.MapFrom(x => x.Answers))
-            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(x => x.Answers))
+            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(x => x.CreatedAt))
             .ForMember(dest => dest.Creator, opt => opt.MapFrom(x => x.Creator))
             .ForMember(dest => dest.EditedAt, opt => opt.MapFrom(x => x.EditedAt))
             .ForMember(dest => dest.EditedBy, opt => opt.MapFrom(x => x.EditedBy));

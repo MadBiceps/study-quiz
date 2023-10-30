@@ -126,7 +126,7 @@ export class RunQuizPageComponent implements OnInit {
   }
 
   public get correctQuestionCount() {
-    return this.questions.filter(question => question.options.find(option => option.isCorrect && option.isSelected)).length;
+    return this.questions.filter(question => question.options.find(option => option.isCorrect === true && option.isSelected === true)).length;
   }
 
   public get score() {

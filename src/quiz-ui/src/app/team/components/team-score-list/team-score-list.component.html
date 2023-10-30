@@ -11,8 +11,8 @@
     <tbody>
       <tr *ngFor="let score of scores">
         <td class="left"> {{ score.id }} </td>
-        <td class="left"> {{ score.user.username }} </td>
-        <td class="left"> {{ score.date | date }} </td>
+        <td class="left"> {{ score.member.username }} </td>
+        <td class="left"> {{ score.dateTime | date }} </td>
         <td class="left"> {{ score.score }} Points </td>
       </tr>
     </tbody>

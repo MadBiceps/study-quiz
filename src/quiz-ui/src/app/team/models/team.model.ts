@@ -20,6 +20,6 @@ export interface TeamMember extends User {
 export interface TeamScore {
   id: string;
   score: number;
-  date: Date;
-  user: User;
+  dateTime: Date;
+  member: User;
 }

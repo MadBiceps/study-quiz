@@ -51,6 +51,10 @@ export class AuthService {
     return 'Bearer ' + token.token;
   }
 
+  public logout() {
+    localStorage.removeItem("token");
+  }
+
   public set token(token: AuthToken) {
     localStorage.setItem("token", JSON.stringify(token));
   }

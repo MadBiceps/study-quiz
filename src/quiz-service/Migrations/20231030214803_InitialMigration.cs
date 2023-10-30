@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace quiz_service.Migrations
 {
     /// <inheritdoc />
-    public partial class Inital : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -166,8 +166,8 @@ namespace quiz_service.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
                     UpdatedById = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -190,7 +190,7 @@ namespace quiz_service.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -210,9 +210,9 @@ namespace quiz_service.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Label = table.Column<string>(type: "text", nullable: false),
                     Hint = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
-                    EditedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    EditedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     EditedById = table.Column<string>(type: "text", nullable: true),
                     QuizId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -245,8 +245,8 @@ namespace quiz_service.Migrations
                     QuizId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     TeamId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FinishedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    FinishedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -276,8 +276,8 @@ namespace quiz_service.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     TeamId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Joined = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Left = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    Joined = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Left = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -304,9 +304,9 @@ namespace quiz_service.Migrations
                     Reason = table.Column<string>(type: "text", nullable: false),
                     IsCorrect = table.Column<bool>(type: "boolean", nullable: false),
                     CreatorId = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     EditedById = table.Column<string>(type: "text", nullable: true),
-                    EditedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    EditedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     QuestionId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -331,13 +331,39 @@ namespace quiz_service.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AttemptQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false),
+                    QuestionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    QuizAttemptId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttemptQuestions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AttemptQuestions_Questions_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AttemptQuestions_QuizAttempts_QuizAttemptId",
+                        column: x => x.QuizAttemptId,
+                        principalTable: "QuizAttempts",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AttemptAnswers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AttemptQuestionId = table.Column<Guid>(type: "uuid", nullable: false),
                     AnswerId = table.Column<Guid>(type: "uuid", nullable: false),
                     QuizAttemptId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AnsweredAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AnsweredAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Score = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -350,42 +376,17 @@ namespace quiz_service.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_AttemptAnswers_AttemptQuestions_AttemptQuestionId",
+                        column: x => x.AttemptQuestionId,
+                        principalTable: "AttemptQuestions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_AttemptAnswers_QuizAttempts_QuizAttemptId",
                         column: x => x.QuizAttemptId,
                         principalTable: "QuizAttempts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AttemptQuestions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Order = table.Column<int>(type: "integer", nullable: false),
-                    QuestionId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AnswerId = table.Column<Guid>(type: "uuid", nullable: true),
-                    QuizAttemptId = table.Column<Guid>(type: "uuid", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AttemptQuestions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AttemptQuestions_AttemptAnswers_AnswerId",
-                        column: x => x.AnswerId,
-                        principalTable: "AttemptAnswers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_AttemptQuestions_Questions_QuestionId",
-                        column: x => x.QuestionId,
-                        principalTable: "Questions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AttemptQuestions_QuizAttempts_QuizAttemptId",
-                        column: x => x.QuizAttemptId,
-                        principalTable: "QuizAttempts",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -446,14 +447,15 @@ namespace quiz_service.Migrations
                 column: "AnswerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AttemptAnswers_AttemptQuestionId",
+                table: "AttemptAnswers",
+                column: "AttemptQuestionId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AttemptAnswers_QuizAttemptId",
                 table: "AttemptAnswers",
                 column: "QuizAttemptId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AttemptQuestions_AnswerId",
-                table: "AttemptQuestions",
-                column: "AnswerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AttemptQuestions_QuestionId",
@@ -540,7 +542,7 @@ namespace quiz_service.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AttemptQuestions");
+                name: "AttemptAnswers");
 
             migrationBuilder.DropTable(
                 name: "TeamMemberships");
@@ -549,22 +551,22 @@ namespace quiz_service.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AttemptAnswers");
-
-            migrationBuilder.DropTable(
                 name: "Answers");
 
             migrationBuilder.DropTable(
-                name: "QuizAttempts");
+                name: "AttemptQuestions");
 
             migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "QuizAttempts");
 
             migrationBuilder.DropTable(
                 name: "Quizzes");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

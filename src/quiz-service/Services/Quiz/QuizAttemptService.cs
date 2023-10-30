@@ -90,7 +90,7 @@ public class QuizAttemptService : IQuizAttemptService
         if (question == null)
             throw new Exception("Question not found");
         var order = question.Order;
-        if (quizAttempt.Questions.Where(x => x.Order > order).All(x => x.Answer == null))
+        if (quizAttempt.Questions.Where(x => x.Order < order).Any(x => x.Answer == null))
             throw new Exception("Not in correct order");
 
         var answer = question.Question.Answers.FirstOrDefault(x => x.Id == answerId);
@@ -103,9 +103,17 @@ public class QuizAttemptService : IQuizAttemptService
             AnsweredAt = DateTime.Now,
             Id = Guid.NewGuid(),
             QuizAttempt = quizAttempt,
-            Score = answer.IsCorrect ? 10 : -5
+            Score = answer.IsCorrect ? 10 : -5,
+            AttemptQuestion = question,
+            AttemptQuestionId = question.Id,
         };
         await _dbContext.AddAsync(answerAttempt);
+        
+        await _dbContext.SaveChangesAsync();
+        if (quizAttempt.Questions.All(x => x.Answer == null)) 
+            return await GetByIdAsync(quizAttemptId);
+        quizAttempt.FinishedAt = DateTime.Now;
+        _dbContext.Update(quizAttempt);
         await _dbContext.SaveChangesAsync();
         return await GetByIdAsync(quizAttemptId);
     }

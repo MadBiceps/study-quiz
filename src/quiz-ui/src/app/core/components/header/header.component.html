@@ -21,7 +21,7 @@
   <div *ngIf="displayNav" class="header-actions">
     <clr-dropdown>
       <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
-        Max Mustermann
+        {{ username }}
         <cds-icon shape="angle" direction="down"></cds-icon>
       </button>
       <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">

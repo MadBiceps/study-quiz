@@ -21,4 +21,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<AttemptQuestion>()
+            .HasOne(a => a.Answer)
+            .WithOne(a => a.AttemptQuestion)
+            .HasForeignKey<AttemptAnswer>(c => c.AttemptQuestionId);  
+        base.OnModelCreating(modelBuilder);
+    }
 }

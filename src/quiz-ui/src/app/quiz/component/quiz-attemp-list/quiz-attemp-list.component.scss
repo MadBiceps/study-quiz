@@ -5,3 +5,9 @@
     cursor: pointer;
   }
 }
+
+.not-selectable {
+  &:hover {
+    cursor: not-allowed;
+  }
+}

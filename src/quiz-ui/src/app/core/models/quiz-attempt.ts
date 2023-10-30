@@ -1,18 +1,26 @@
 import { Answer, Question } from "./question.model";
-import { Quiz } from "./quiz.model";
 import { User } from "./user.model";
 
 export interface QuizAttempt {
   id: string;
+  quizId: string;
+  questions: QuizAttemptQuestion[];
   user: User;
-  quiz: Quiz;
-  attemptAnswers: AttemptAnswer[];
-  status: 'inProgress' | 'finished'
+  teamId: string | undefined;
+  createdAt: Date;
+  finishedAt: Date | undefined;
 }
 
-export interface AttemptAnswer {
+export interface QuizAttemptQuestion {
   id: string;
+  order: number;
   question: Question;
-  answer?: Answer;
-  resultingScore: number;
+  answer: QuizAttemptAnswer;
+}
+
+export interface QuizAttemptAnswer {
+  id: string;
+  answer: Answer;
+  answeredAt: Date;
+  score: number;
 }

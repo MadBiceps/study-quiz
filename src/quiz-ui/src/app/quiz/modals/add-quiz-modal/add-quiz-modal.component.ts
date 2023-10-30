@@ -26,7 +26,8 @@ export class AddQuizModalComponent {
     updatedBy: {
       username: '',
       mail: '',
-    }
+    },
+    attempts: []
   };
 
   public onAdd() {

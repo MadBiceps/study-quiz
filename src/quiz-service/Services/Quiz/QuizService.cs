@@ -16,18 +16,20 @@ public class QuizService : IQuizService
         _dbContext = dbContext;
     }
 
-    public async Task<List<Models.Database.Quiz>> GetAsync(int? page, int? pageSize, string? searchTerm)
+    public async Task<List<Models.Database.Quiz>> GetAsync(int? page, int? pageSize, string? searchTerm, ApplicationUser? user = null)
     {
         List<Models.Database.Quiz> quizzes;
         if (searchTerm != null)
         {
             quizzes = await _dbContext.Quizzes.Where(x =>
-                x.Title.ToLower().Contains(searchTerm.ToLower()) ||
-                x.Description.ToLower().Contains(searchTerm.ToLower())).ToListAsync();
+                    x.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                    x.Description.ToLower().Contains(searchTerm.ToLower())).Include(quiz => quiz.Attempts)
+                .ThenInclude(quizAttempt => quizAttempt.User).ToListAsync();
         }
         else
         {
-            quizzes = await _dbContext.Quizzes.ToListAsync();
+            quizzes = await _dbContext.Quizzes.Include(quiz => quiz.Attempts)
+                .ThenInclude(quizAttempt => quizAttempt.User).ToListAsync();
         }
 
         if (page != null && pageSize != null)
@@ -35,9 +37,11 @@ public class QuizService : IQuizService
         return quizzes;
     }
 
-    public async Task<Models.Database.Quiz> GetByIdAsync(Guid id)
+    public async Task<Models.Database.Quiz> GetByIdAsync(Guid id, ApplicationUser? user = null)
     {
-        var quiz = await _dbContext.Quizzes.FirstOrDefaultAsync(x => x.Id.Equals(id));
+        var quiz = await _dbContext.Quizzes.Include(quiz => quiz.Attempts)
+            .ThenInclude(quizAttempt => quizAttempt.User)
+            .FirstOrDefaultAsync(x => x.Id.Equals(id));
         if (quiz == null)
             throw new QuizNotFoundException(id);
         return quiz;

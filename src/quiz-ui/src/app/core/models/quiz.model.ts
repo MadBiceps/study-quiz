@@ -1,4 +1,5 @@
 import { Question } from "./question.model";
+import { QuizAttempt } from "./quiz-attempt";
 import { User } from "./user.model";
 
 export interface Quiz {
@@ -11,4 +12,5 @@ export interface Quiz {
   updatedAt: Date;
   creator: User;
   updatedBy: User;
+  attempts: QuizAttempt[];
 }

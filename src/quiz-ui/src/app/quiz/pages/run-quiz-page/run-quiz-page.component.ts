@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { delay, map, of } from 'rxjs';
-import { QuizAttempt } from 'src/app/core/models/quiz-attempt';
+import { QuizAttempt, QuizAttemptQuestion } from 'src/app/core/models/quiz-attempt';
 import { QuizAttemptService } from 'src/app/services/quiz-attempt.service';
 
 export interface Question {
@@ -40,6 +40,7 @@ export class RunQuizPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // TODO: Add status analysis
     this.activatedRoute.params.subscribe(params => {
       this.quizAttemptService.getById(params['attemptId']).subscribe(resp => {
         if (resp !== null) {
@@ -53,7 +54,7 @@ export class RunQuizPageComponent implements OnInit {
                 return {
                   id: x.id,
                   text: x.label,
-                  isSelected: false,
+                  isSelected: this.setSelectionState(question, x.id),
                   isCorrect: x.isCorrect,
                   comment: x.reason
                 };
@@ -63,6 +64,12 @@ export class RunQuizPageComponent implements OnInit {
         }
       });
     })
+  }
+
+  public setSelectionState(question: QuizAttemptQuestion, answerId: string) {
+    if(question.answer === null)
+      return false;
+    return question.answer.answer.id === answerId;
   }
 
   public get currentQuestion() {
@@ -76,8 +83,6 @@ export class RunQuizPageComponent implements OnInit {
       });
       this.questionState = 'answer';
     }
-
-    // TODO: Check if the anwser is correct with backend system
 
     if(this.attempt === undefined) {
       return;
@@ -95,7 +100,7 @@ export class RunQuizPageComponent implements OnInit {
             return {
               id: z.id,
               text: z.label,
-              isSelected: this.getSelectionState(y.id, z.id),
+              isSelected: this.setSelectionState(y, z.id),
               isCorrect: z.isCorrect,
               comment: z.reason
             }
@@ -126,13 +131,14 @@ export class RunQuizPageComponent implements OnInit {
   }
 
   public get correctQuestionCount() {
+    console.log(this.questions);
     return this.questions.filter(question => question.options.find(option => option.isCorrect === true && option.isSelected === true)).length;
   }
 
   public get score() {
     let correctQuestionCount = this.correctQuestionCount;
     let incorrectQuestionCount = this.questions.length - correctQuestionCount;
-    return correctQuestionCount * 5 - incorrectQuestionCount * 2;
+    return correctQuestionCount * 10 - incorrectQuestionCount * 5;
   }
 
   public getQuestionCssCLass(questionId: string) {

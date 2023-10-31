@@ -30,10 +30,13 @@ export class QuizAttempListComponent implements OnInit {
   }
 
   public getFinishedQuestionCount(attempt: QuizAttempt): number {
-    return attempt.questions.filter(x => x.answer !== undefined).length;
+    return attempt.questions.filter(x => x.answer !== null).length;
   }
 
   public getQuizScore(attempt: QuizAttempt): number {
-    return attempt.questions.map(x => x.answer.score).reduce((a, b) => a + b);
+    const resp = attempt.questions.map(x => x.answer?.score).reduce((a, b) => a + b);
+    if(Number.isNaN(resp))
+      return 0;
+    return resp;
   }
 }

@@ -25,7 +25,7 @@ export interface Option {
   styleUrls: ['./run-quiz-page.component.scss']
 })
 export class RunQuizPageComponent implements OnInit {
-  public status: 'loading' | 'start' | 'finish' | 'error' | 'continue' | 'running' = 'start' //'loading';
+  public status: 'loading' | 'start' | 'finish' | 'error' | 'continue' | 'running' = 'loading';
   public questionState: 'display' | 'answer' | 'result' = 'display';
   public currentQuestionId = 0;
   public errorMessage = '';
@@ -62,8 +62,37 @@ export class RunQuizPageComponent implements OnInit {
             })
           });
         }
+        this.setQuizState();
+      }, error => {
+        this.errorMessage = error;
+        this.status = 'error';
       });
     })
+  }
+
+  public setQuizState() {
+    const notAnsweredQuestionCount = this.attempt?.questions.filter(x => x.answer === null).length;
+    if (notAnsweredQuestionCount === 0) {
+      this.status = 'finish';
+      return;
+    }
+
+    if (this.attempt === undefined) {
+      this.status = 'error';
+      return;
+    }
+
+    if(notAnsweredQuestionCount === this.questions.length) {
+      this.status = 'start';
+      return;
+    }
+
+    this.status = 'continue';
+    this.attempt.questions.sort((a,b) => b.order - a.order).forEach(question => {
+      if (question.answer === null) {
+        this.currentQuestionId = this.questions.findIndex(x => x.id === question.question.id);
+      }
+    });
   }
 
   public setSelectionState(question: QuizAttemptQuestion, answerId: string) {
@@ -114,6 +143,9 @@ export class RunQuizPageComponent implements OnInit {
       const question = x.find(y => y.id === this.questions[this.currentQuestionId].id);
       if (question !== undefined)
         this.questions[this.currentQuestionId] = question;
+    }, error => {
+      this.errorMessage = error;
+      this.status = 'error';
     });
   }
 

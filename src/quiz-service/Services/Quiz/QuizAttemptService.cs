@@ -108,13 +108,16 @@ public class QuizAttemptService : IQuizAttemptService
             AttemptQuestionId = question.Id,
         };
         await _dbContext.AddAsync(answerAttempt);
-        
         await _dbContext.SaveChangesAsync();
-        if (quizAttempt.Questions.All(x => x.Answer == null)) 
-            return await GetByIdAsync(quizAttemptId);
+
+        quizAttempt = await GetByIdAsync(quizAttemptId);
+
+        if (quizAttempt.Questions.Any(x => x.Answer == null))
+            return quizAttempt;
         quizAttempt.FinishedAt = DateTime.Now;
-        _dbContext.Update(quizAttempt);
+        quizAttempt = _dbContext.Update(quizAttempt).Entity;
         await _dbContext.SaveChangesAsync();
-        return await GetByIdAsync(quizAttemptId);
+        return quizAttempt;
+
     }
 }

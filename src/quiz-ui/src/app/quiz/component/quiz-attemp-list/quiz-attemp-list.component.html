@@ -12,7 +12,7 @@
       <tr [ngClass]="{ 'selectable': isOwnAttempt(attempt.user.username), 'not-selectable': !isOwnAttempt(attempt.user.username) }" class="selectable" *ngFor="let attempt of attempts">
         <td class="left">{{ attempt.user.username }}</td>
         <td class="left">{{ getFinishedQuestionCount(attempt) }}/{{ attempt.questions.length }}</td>
-        <td class="left">{{ attempt.finishedAt === undefined ? 'In Progress' : 'Finished' }}</td>
+        <td class="left">{{ attempt.finishedAt === null ? 'In Progress' : 'Finished' }}</td>
         <td class="left">{{ getQuizScore(attempt) }}</td>
       </tr>
     </tbody>

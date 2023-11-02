@@ -2,29 +2,29 @@
   <div class="header-section">
     <h1>Dashboard</h1>
     <div class="subtitle">
-      <span>Welcome to the IUBH Quiz</span>
+      <span>Welcome to the Study Quiz</span>
     </div>
   </div>
   <div class="content">
-    <div class="upper-section section">
+    <div class="upper-section section" *ngIf="userScore !== undefined; else loading">
       <div class="clr-row">
         <div class="clr-col">
-          <app-quiz-score-card title="Your Monthly Score" (action)="goToQuiz()" />
+          <app-quiz-score-card title="Your Monthly Score" [score]="userScore.monthlyScore" (action)="goToQuiz()" />
+        </div>
+        <div class="clr-col" *ngIf="userScore.teamScore">
+          <app-quiz-score-card title="Your Team Score" actionTitle="Go to Team" [score]="userScore.teamScore" (action)="goToTeam()" />
         </div>
         <div class="clr-col">
-          <app-quiz-score-card title="Your Team Score" actionTitle="Go to Team" (action)="goToTeam()" />
-        </div>
-        <div class="clr-col">
-          <app-quiz-score-card title="Your Max Score" [actionTitle]="undefined" />
+          <app-quiz-score-graph-card title="Your Score over Time" [actionTitle]="undefined" [timeData]="userScore.timeScore" />
         </div>
       </div>
     </div>
-    <div class="middle-section section">
+    <div class="middle-section section" *ngIf="userQuiz !== undefined; else loading">
       <div class="section-title">
         <h2>Your recent Quizzes</h2>
       </div>
       <div class="section-contnet">
-        <app-recent-quiz-table />
+        <app-recent-quiz-table [quizzes]="userQuiz" />
       </div>
     </div>
     <div class="bottom-section section">
@@ -35,15 +35,22 @@
             <div class="subtitle">
               <span> User Leaderboard </span>
             </div>
-            <app-leaderboard-table class="element" />
+            <app-leaderboard-table [leaderUserList]="userLeaderboard" class="element" />
           </div>
           <div>
             <div class="subtitle">
               <span> Team Leaderboard </span>
             </div>
-            <app-team-leaderboard-table class="element" />
+            <app-leaderboard-table [leaderTeamList]="teamLeaderboard" class="element" />
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <ng-template #loading>
+    <div class="loading-wrapper">
+      <span class="spinner">Loading...</span>
+    </div>
+  </ng-template>
+  

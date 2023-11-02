@@ -2,8 +2,8 @@
   <div class="header-section">
     <h4> {{ title }} </h4>
   </div>
-  <div class="content" *ngIf="score !== undefined">
-    <span> {{ score }} Points </span>
+  <div class="content">
+    <canvas id="scoreChart">{{ chart }}</canvas>
   </div>
   <div class="actions">
     <button class="btn btn-link" *ngIf="actionTitle" (click)="onAction()"> {{ actionTitle }} </button>

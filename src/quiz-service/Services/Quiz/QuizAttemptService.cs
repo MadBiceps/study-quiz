@@ -118,6 +118,5 @@ public class QuizAttemptService : IQuizAttemptService
         quizAttempt = _dbContext.Update(quizAttempt).Entity;
         await _dbContext.SaveChangesAsync();
         return quizAttempt;
-
     }
 }

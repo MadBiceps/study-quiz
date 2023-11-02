@@ -4,6 +4,7 @@ import { User } from "./user.model";
 export interface QuizAttempt {
   id: string;
   quizId: string;
+  quizTitle: string
   questions: QuizAttemptQuestion[];
   user: User;
   teamId: string | undefined;

@@ -2,7 +2,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="left">ID</th>
         <th class="left">User</th>
         <th class="left">Date</th>
         <th class="left">Score</th>
@@ -10,7 +9,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let score of scores">
-        <td class="left"> {{ score.id }} </td>
         <td class="left"> {{ score.member.username }} </td>
         <td class="left"> {{ score.dateTime | date }} </td>
         <td class="left"> {{ score.score }} Points </td>

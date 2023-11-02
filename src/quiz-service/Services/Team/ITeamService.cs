@@ -15,4 +15,6 @@ public interface ITeamService
     public Task<Models.Database.Team> UpdateAsync(Models.Database.Team team, ApplicationUser user);
 
     public Task DeleteAsync(Guid id);
+
+    public Task<Tuple<int, Dictionary<DateTime, int>>> GetScoreAsync(Guid teamId);
 }

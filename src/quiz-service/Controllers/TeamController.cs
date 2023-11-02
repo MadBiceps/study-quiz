@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +38,22 @@ public class TeamController : ApiController
     {
         var team = await _teamService.GetByIdAsync(teamId);
         return Ok(_mapper.Map<TeamDTO>(team));
+    }
+
+    [Authorize]
+    [HttpGet("{teamId:guid}/score")]
+    public async Task<IActionResult> GetTeamScoreAsync(Guid teamId)
+    {
+        var teamScore = await _teamService.GetScoreAsync(teamId);
+        return Ok(new ScoreDTO
+        {
+            CurrentScore = teamScore.Item1,
+            ScoreOverTime = teamScore.Item2.Select(x => new TimeScoreDTO
+            {
+                Time = x.Key,
+                Value = x.Value
+            }).ToList()
+        });
     }
 
     [Authorize]

@@ -45,3 +45,13 @@ app-quiz-score-card {
     }
   }
 }
+
+.loading-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.element {
+  width: 100%;
+  margin-right: 2rem;
+}

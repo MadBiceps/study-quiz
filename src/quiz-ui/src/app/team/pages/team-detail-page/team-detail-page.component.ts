@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Team } from '../../models/team.model';
+import { Team, TeamScore } from '../../models/team.model';
 import { treeFeaturesFactory } from '@clr/angular/data/tree-view/tree-features.service';
 import { TeamService } from 'src/app/services/team.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { ErrorService } from 'src/app/services/error.service';
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { TeamUserService } from 'src/app/services/team-user.service';
+import { TeamBoardScore } from 'src/app/core/models/team-score';
 
 @Component({
   selector: 'app-team-detail-page',
@@ -18,6 +19,7 @@ export class TeamDetailPageComponent implements OnInit {
   public deleteModalOpen = false;
   public team: Team | undefined;
   public user: User | undefined;
+  public score: TeamBoardScore | undefined;
 
   constructor(
     private teamService: TeamService,
@@ -40,6 +42,14 @@ export class TeamDetailPageComponent implements OnInit {
         }
       }, error => {
         this.errorService.displayError(`Error while fetching team. Status ${error['status']}. Please try again later.`);
+      });
+
+      this.teamService.getScore(teamId).subscribe(score => {
+        if(score !== null) {
+          this.score = score;
+        } else {
+          this.errorService.displayError('Error while fetching team score. Please try again later.');
+        }
       });
     });
 

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Team } from '../team/models/team.model';
+import { Team, TeamScore } from '../team/models/team.model';
 import { map } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { TeamBoardScore } from '../core/models/team-score';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class TeamService {
 
   public getById(id: string) {
     return this.apiService.MakeSecureGetRequest<Team>('v1/teams/' + id).pipe(map(x => x.body));
+  }
+
+  public getScore(teamId: string) {
+    return this.apiService.MakeSecureGetRequest<TeamBoardScore>('v1/teams/' + teamId + '/score').pipe(map(x => x.body));
   }
 
   public create(team: Team) {

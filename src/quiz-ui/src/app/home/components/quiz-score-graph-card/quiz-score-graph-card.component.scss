@@ -1,0 +1,22 @@
+
+.quiz-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 7rem;
+  height: 100%;
+  padding: 0 20px 10px 20px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+  .content {
+    margin-top: 0.5rem;
+    span {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -70,7 +70,8 @@ public class GeneralMappingProfile : Profile
             .ForMember(dest => dest.Questions, opt => opt.MapFrom(x => x.Questions))
             .ForMember(dest => dest.TeamId, opt => opt.MapFrom(x => x.Team != null ? x.Team.Id : Guid.Empty))
             .ForMember(dest => dest.QuizId, opt => opt.MapFrom(x => x.Quiz.Id))
-            .ForMember(dest => dest.FinishedAt, opt => opt.MapFrom(x => x.FinishedAt));
+            .ForMember(dest => dest.FinishedAt, opt => opt.MapFrom(x => x.FinishedAt))
+            .ForMember(dest => dest.QuizTitle, opt => opt.MapFrom(x => x.Quiz.Title));
 
         CreateMap<AttemptQuestion, AttemptQuestionDTO>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))

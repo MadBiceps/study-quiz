@@ -23,7 +23,7 @@
           Current Team Score
         </div>
         <div class="card-body">
-          <span>{{ team.currentScore }} Points</span> 
+          <span>{{ score?.currentScore }} Points</span> 
         </div>
       </div>
       <div class="card">
@@ -31,7 +31,7 @@
           Team Performance by time
         </div>
         <div class="card-body">
-
+          <app-team-score-chart *ngIf="score !== undefined" [scores]="score.scoreOverTime" />
         </div>
       </div>
     </div>

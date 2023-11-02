@@ -6,7 +6,7 @@ public class AttemptQuestion
 {
     [Key]
     public Guid Id { get; set; }
-    
+
     public int Order { get; set; }
 
     public virtual Question Question { get; set; }

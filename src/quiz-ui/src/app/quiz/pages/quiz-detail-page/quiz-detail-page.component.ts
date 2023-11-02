@@ -1,47 +1,53 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/core/models/question.model';
 import { Quiz } from 'src/app/core/models/quiz.model';
+import { QuizAttemptService } from 'src/app/services/quiz-attempt.service';
+import { QuizQuestionService } from 'src/app/services/quiz-question.service';
+import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
   selector: 'app-quiz-detail-page',
   templateUrl: './quiz-detail-page.component.html',
   styleUrls: ['./quiz-detail-page.component.scss']
 })
-export class QuizDetailPageComponent {
+export class QuizDetailPageComponent implements OnInit {
   public showDeleteModal = false;
   public showUpdateModal = false;
   public showAddQuestionModal = false;
   public showUpdateQuestionModal = false;
   public selectedQuestion: Question | undefined;
 
-  public quiz: Quiz = {
-    id: 'Test',
-    title: 'Test',
-    description: 'Test',
-    questions: [],
-    questionCount: 5,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    createdBy: {
-      username: 'Test',
-      mail: 'Test',
-    },
-    updatedBy: {
-      username: 'Test',
-      mail: 'Test',
-    }
-  };
+  public quiz: Quiz | undefined;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private quizService: QuizService,
+    private quizAttemptService: QuizAttemptService,
+    private quizQuestionService: QuizQuestionService
   ) {
 
   }
 
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.quizService.getById(params['id']).subscribe(resp => {
+        if (resp !== null)
+          this.quiz = resp;
+      })
+    });
+  }
+
   onStartQuiz() {
-    // TODO: Implement hear the quiz instance creation request
-    this.router.navigate([this.router.url, 'attempt', 'attemptId' ]);
+    // Creating quiz attempt and navigating to it
+    if (this.quiz !== undefined) {
+      this.quizAttemptService.create(this.quiz.id).subscribe(resp => {
+        if (resp !== null) {
+          this.router.navigate([this.router.url, 'attempt', resp.id]);
+        }
+      });
+    }
   }
 
   onAddQuestion() {
@@ -53,13 +59,16 @@ export class QuizDetailPageComponent {
     this.showUpdateQuestionModal = true;
   }
 
-  onDelete () {
+  onDelete() {
     this.showDeleteModal = true;
   }
 
   deleteQuiz() {
-    // TODO: Implement delete request
     this.showDeleteModal = false;
+    if (this.quiz !== undefined)
+      this.quizService.delete(this.quiz).subscribe(() => {
+        this.router.navigate(['/quizzes']);
+      });
   }
 
   onUpdate() {
@@ -67,9 +76,14 @@ export class QuizDetailPageComponent {
   }
 
   update(quiz: Quiz) {
-    // TODO: Add update request
     this.quiz = quiz;
     this.showUpdateModal = false;
+    this.quizService.update(quiz).subscribe(() => {
+      this.quizService.getById(quiz.id).subscribe(resp => {
+        if (resp !== null)
+          this.quiz = resp;
+      });
+    });
   }
 
   close() {
@@ -80,13 +94,28 @@ export class QuizDetailPageComponent {
   }
 
   createQuestion(question: Question) {
-    this.quiz.questions.push(question);
+    this.quiz?.questions.push(question);
     this.showAddQuestionModal = false;
+
+    if (this.quiz !== undefined)
+      this.quizQuestionService.create(this.quiz.id, question).subscribe(() => {
+        this.quizService.getById(this.quiz!.id).subscribe(resp => {
+          if (resp !== null)
+            this.quiz = resp;
+        })
+      });
   }
 
   updateQuestion(question: Question) {
-    this.quiz.questions[this.quiz.questions.findIndex(q => q.id === question.id)] = question;
-    this.showUpdateQuestionModal = false;
-    this.selectedQuestion = undefined;
+    if (this.quiz !== undefined) {
+      this.showUpdateQuestionModal = false;
+      this.selectedQuestion = undefined;
+      this.quizQuestionService.update(this.quiz.id, question).subscribe(_ => {
+        this.quizService.getById(this.quiz!.id).subscribe(resp => {
+          if (resp !== null)
+            this.quiz = resp;
+        })
+      })
+    }
   }
 }

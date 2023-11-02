@@ -1,18 +1,18 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="left">Course ID</th>
-      <th class="left">Course Name</th>
+      <th class="left">Quiz</th>
       <th class="left">Date</th>
+      <th class="left">Status</th>
       <th class="left">Score</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let quiz of quizzes">
-      <td class="left"> {{ quiz.courseId }} </td>
-      <td class="left"> {{ quiz.courseName }} </td>
-      <td class="left"> {{ quiz.date | date }} </td>
-      <td class="left"> {{ quiz.score }} Points </td>
+      <td class="left"> {{ quiz.quizTitle }} </td>
+      <td class="left"> {{ quiz.createdAt | date }} </td>
+      <td class="left"> {{ quiz.finishedAt !== undefined ? 'Finished' : 'In Progress' }} </td>
+      <td class="left"> {{ getScore(quiz) }} Points </td>
     </tr>
   </tbody>
 </table>

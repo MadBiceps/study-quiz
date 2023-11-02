@@ -15,11 +15,11 @@ public class Quiz
     
     public virtual ApplicationUser Creator { get; set; }
     
-    public virtual ApplicationUser UpdatedBy { get; set; }
+    public virtual ApplicationUser? UpdatedBy { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     
     public virtual List<QuizAttempt> Attempts { get; set; }
 }

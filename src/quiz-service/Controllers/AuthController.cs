@@ -5,22 +5,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using quiz_service.Models.Database;
-using quiz_service.Models.DTOs;
+using quiz_service.Models.DTOs.InDTO;
+using quiz_service.Models.DTOs.OutDTO;
 
 namespace quiz_service.Controllers;
 
-[Route("/api/v1/authenticate")]
+[Route("authenticate")]
 public class AuthController : ApiController
 {
-    private readonly UserManager<ApplicationUser> userManager;
-    private readonly RoleManager<IdentityRole> roleManager;
+    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IConfiguration _configuration;
 
-    public AuthController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager,
+    public AuthController(UserManager<ApplicationUser> userManager,
         IConfiguration configuration)
     {
-        this.userManager = userManager;
-        this.roleManager = roleManager;
+        _userManager = userManager;
         _configuration = configuration;
     }
 
@@ -28,9 +27,9 @@ public class AuthController : ApiController
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginDTO model)
     {
-        var user = await userManager.FindByNameAsync(model.Username);
-        if (user == null || !await userManager.CheckPasswordAsync(user, model.Password)) return Unauthorized();
-        var userRoles = await userManager.GetRolesAsync(user);
+        var user = await _userManager.FindByNameAsync(model.Username);
+        if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password)) return Unauthorized();
+        var userRoles = await _userManager.GetRolesAsync(user);
 
         var authClaims = new List<Claim>
         {
@@ -60,7 +59,7 @@ public class AuthController : ApiController
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDTO model)
     {
-        var userExists = await userManager.FindByNameAsync(model.Username);
+        var userExists = await _userManager.FindByNameAsync(model.Username);
         if (userExists != null)
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseDTO { Status = "Error", Message = "User already exists!" });
@@ -71,11 +70,11 @@ public class AuthController : ApiController
             SecurityStamp = Guid.NewGuid().ToString(),
             UserName = model.Username
         };
-        var result = await userManager.CreateAsync(user, model.Password);
+        var result = await _userManager.CreateAsync(user, model.Password);
         return !result.Succeeded
             ? StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseDTO
-                    { Status = "Error", Message = "User creation failed! Please check user details and try again." })
+                    { Status = "Error", Message = result.Errors.First().Description })
             : Ok(new ResponseDTO { Status = "Success", Message = "User created successfully!" });
     }
 }

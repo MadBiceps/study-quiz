@@ -164,16 +164,19 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CreatorId")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("EditedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("EditedById")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -185,9 +188,6 @@ namespace quiz_service.Migrations
                     b.Property<string>("Reason")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<bool>("isCorrect")
-                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -274,17 +274,23 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("AnsweredAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("AttemptQuestionId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("QuizAttemptId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Score")
-                        .HasColumnType("boolean");
+                    b.Property<int>("Score")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AnswerId");
+
+                    b.HasIndex("AttemptQuestionId")
+                        .IsUnique();
 
                     b.HasIndex("QuizAttemptId");
 
@@ -297,9 +303,6 @@ namespace quiz_service.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("AnswerId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
@@ -310,8 +313,6 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AnswerId");
 
                     b.HasIndex("QuestionId");
 
@@ -327,13 +328,13 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CreatorId")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("EditedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("EditedById")
                         .HasColumnType("text");
@@ -366,7 +367,7 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CreatorId")
                         .HasColumnType("text");
@@ -379,8 +380,8 @@ namespace quiz_service.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UpdatedById")
                         .HasColumnType("text");
@@ -401,10 +402,10 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("FinishedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("QuizId")
                         .HasColumnType("uuid");
@@ -433,18 +434,18 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatorId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatorId");
 
                     b.ToTable("Teams");
                 });
@@ -456,10 +457,10 @@ namespace quiz_service.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Joined")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("Left")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("Left")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uuid");
@@ -558,6 +559,12 @@ namespace quiz_service.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("quiz_service.Models.Database.AttemptQuestion", "AttemptQuestion")
+                        .WithOne("Answer")
+                        .HasForeignKey("quiz_service.Models.Database.AttemptAnswer", "AttemptQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("quiz_service.Models.Database.QuizAttempt", "QuizAttempt")
                         .WithMany()
                         .HasForeignKey("QuizAttemptId")
@@ -566,15 +573,13 @@ namespace quiz_service.Migrations
 
                     b.Navigation("Answer");
 
+                    b.Navigation("AttemptQuestion");
+
                     b.Navigation("QuizAttempt");
                 });
 
             modelBuilder.Entity("quiz_service.Models.Database.AttemptQuestion", b =>
                 {
-                    b.HasOne("quiz_service.Models.Database.AttemptAnswer", "Answer")
-                        .WithMany()
-                        .HasForeignKey("AnswerId");
-
                     b.HasOne("quiz_service.Models.Database.Question", "Question")
                         .WithMany("Attempts")
                         .HasForeignKey("QuestionId")
@@ -584,8 +589,6 @@ namespace quiz_service.Migrations
                     b.HasOne("quiz_service.Models.Database.QuizAttempt", null)
                         .WithMany("Questions")
                         .HasForeignKey("QuizAttemptId");
-
-                    b.Navigation("Answer");
 
                     b.Navigation("Question");
                 });
@@ -637,7 +640,7 @@ namespace quiz_service.Migrations
                         .IsRequired();
 
                     b.HasOne("quiz_service.Models.Database.Team", "Team")
-                        .WithMany()
+                        .WithMany("QuizAttempts")
                         .HasForeignKey("TeamId");
 
                     b.HasOne("quiz_service.Models.Database.ApplicationUser", "User")
@@ -653,11 +656,11 @@ namespace quiz_service.Migrations
 
             modelBuilder.Entity("quiz_service.Models.Database.Team", b =>
                 {
-                    b.HasOne("quiz_service.Models.Database.ApplicationUser", "User")
+                    b.HasOne("quiz_service.Models.Database.ApplicationUser", "Creator")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CreatorId");
 
-                    b.Navigation("User");
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("quiz_service.Models.Database.TeamMembership", b =>
@@ -684,6 +687,11 @@ namespace quiz_service.Migrations
                     b.Navigation("Memberships");
                 });
 
+            modelBuilder.Entity("quiz_service.Models.Database.AttemptQuestion", b =>
+                {
+                    b.Navigation("Answer");
+                });
+
             modelBuilder.Entity("quiz_service.Models.Database.Question", b =>
                 {
                     b.Navigation("Answers");
@@ -706,6 +714,8 @@ namespace quiz_service.Migrations
             modelBuilder.Entity("quiz_service.Models.Database.Team", b =>
                 {
                     b.Navigation("Member");
+
+                    b.Navigation("QuizAttempts");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { from } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
+import { Quiz } from '../../models/quiz.model';
+import { QuizService } from 'src/app/services/quiz.service';
+import { TeamService } from 'src/app/services/team.service';
+import { Team } from 'src/app/team/models/team.model';
 
 @Component({
   selector: 'app-search-page',
@@ -10,48 +14,9 @@ import { from } from 'rxjs';
 export class SearchPageComponent {
   public searchTerm = '';
 
-  public quizzesSearchResults$ = from(
-    [
-      [{
-        id: 1,
-        name: 'Quiz 1',
-        description: 'Quiz 1 description'
-      }, {
-        id: 2,
-        name: 'Quiz 2',
-        description: 'Quiz 2 description'
-      }, {
-        id: 3,
-        name: 'Quiz 3',
-        description: 'Quiz 3 description'
-      }]
-    ]
-  );
+  public quizzesSearchResults$: Observable<Quiz[]> | undefined;
 
-  public teamsSearchResults$ = from([
-    [{
-      id: 'Team 1',
-      name: 'Team 1',
-      memberCount: 1,
-      maxMemberCount: 10,
-      createdBy: 'User 1',
-      creationDate: new Date()
-    }, {
-      id: 'Team 2',
-      name: 'Team 2',
-      memberCount: 2,
-      maxMemberCount: 10,
-      createdBy: 'User 2',
-      creationDate: new Date()
-    }, {
-      id: 'Team 3',
-      name: 'Team 3',
-      memberCount: 3,
-      maxMemberCount: 10,
-      createdBy: 'User 3',
-      creationDate: new Date()
-    }]
-  ]);
+  public teamsSearchResults$: Observable<Team[]> | undefined;
 
   public usersSearchResults$ = from([
     [{
@@ -73,9 +38,14 @@ export class SearchPageComponent {
   ]);
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private quizService: QuizService,
+    private teamService: TeamService
   ) {
-    this.searchTerm = this.route.snapshot.queryParams['search'];
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm = params['search'];
+      this.quizzesSearchResults$ = this.quizService.get(params['search'], undefined, undefined).pipe(map(x => x as Quiz[]));
+      this.teamsSearchResults$ = this.teamService.get(params['search'], undefined, undefined).pipe(map(x => x as Team[]));
+    });
   }
 }

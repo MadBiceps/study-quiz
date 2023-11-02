@@ -8,10 +8,12 @@ public class Team
     public Guid Id { get; set; }
 
     public string Name { get; set; }
+    
+    public virtual List<QuizAttempt> QuizAttempts { get; set; }
 
     public virtual List<TeamMembership> Member { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
-    public virtual ApplicationUser User { get; set; }
+    public virtual ApplicationUser Creator { get; set; }
 }

@@ -39,6 +39,7 @@ public static class DataExtensions
         }
         else
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             // Add db to ef core
             services.AddDbContext<ApplicationDbContext>(opt =>
             {

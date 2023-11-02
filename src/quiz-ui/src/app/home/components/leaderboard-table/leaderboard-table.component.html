@@ -3,15 +3,20 @@
     <tr>
       <th class="left">Position</th>
       <th class="left">Name</th>
-      <th class="left">Week</th>
       <th class="left">Score</th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let leader of leaderList">
+  <tbody *ngIf="leaderUserList !== undefined">
+    <tr *ngFor="let leader of leaderUserList">
       <td class="left"> {{ leader.position }} </td>
-      <td class="left"> {{ leader.username }} </td>
-      <td class="left"> {{ leader.week }} </td>
+      <td class="left"> {{ leader.data.username }} </td>
+      <td class="left"> {{ leader.score }} Points </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="leaderTeamList !== undefined">
+    <tr *ngFor="let leader of leaderTeamList">
+      <td class="left"> {{ leader.position }} </td>
+      <td class="left"> {{ leader.data.name }} </td>
       <td class="left"> {{ leader.score }} Points </td>
     </tr>
   </tbody>

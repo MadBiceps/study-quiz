@@ -2,34 +2,39 @@
   <form class="login">
     <section class="title">
       <!-- These could be heading elements. -->
-      <div class="welcome">IU Quiz</div>
+      <div class="welcome">Study Quiz</div>
       <div class="hint">Quiz with other students</div>
     </section>
     <div class="login-group">
       <clr-input-container>
         <label class="clr-sr-only">Username</label>
-        <input type="text" autocomplete="username" name="username" clrInput placeholder="Enter username"
-          [(ngModel)]="form.username" />
+        <input type="text" name="username" clrInput placeholder="Enter username"
+          [(ngModel)]="form.username" (change)="validate()"/>
       </clr-input-container>
       <clr-input-container>
         <label class="clr-sr-only">E-mail</label>
         <input type="text" autocomplete="email" name="email" clrInput placeholder="Enter e-mail"
-          [(ngModel)]="form.mail" />
+          [(ngModel)]="form.mail" (change)="validate()"/>
       </clr-input-container>
       <clr-password-container>
         <label class="clr-sr-only">Password</label>
         <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Enter password"
-          [(ngModel)]="form.password" />
+          [(ngModel)]="form.password" (change)="validate()" />
       </clr-password-container>
       <clr-password-container>
         <label class="clr-sr-only">Confirm Password</label>
         <input type="password" autocomplete="confirm-password" name="password" clrPassword placeholder="Confirm password"
-          [(ngModel)]="form.confirmPassword" />
+          [(ngModel)]="form.confirmPassword" (change)="validate()" />
       </clr-password-container>
-      <div class="error active">Username already taken</div>
-      <div class="error active">User account with Mail already exist</div>
+      <div *ngIf="error !== undefined" class="error active">{{ error }}</div>
+      <clr-alert *ngIf="success !== undefined" [clrAlertType]="'success'">
+        <clr-alert-item>
+          <span class="alert-text">{{ success }}</span>
+        </clr-alert-item>
+      </clr-alert>
+      <div *ngIf="validError !== undefined" class="error active"> {{ validError }} </div>
       <div class="error active" *ngIf="form.password !== form.confirmPassword">Passwords are not the same</div>
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!valid" (click)="register()">Register</button>
       <a routerLink="/auth/login" class="signup">Login into a existing account</a>
     </div>
   </form>

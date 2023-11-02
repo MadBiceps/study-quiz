@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Leaderboard } from 'src/app/core/models/leaderboard.model';
+import { User } from 'src/app/core/models/user.model';
+import { Team } from 'src/app/team/models/team.model';
 
 @Component({
   selector: 'app-leaderboard-table',
@@ -11,5 +14,8 @@ export class LeaderboardTableComponent {
     username: 'Max Mustermann',
     week: 'KW 50 2023',
     score: '78.097'
-  }]; 
+  }];
+  
+  @Input() public leaderUserList: Leaderboard<User>[] | undefined;
+  @Input() public leaderTeamList: Leaderboard<Team>[] | undefined;
 }

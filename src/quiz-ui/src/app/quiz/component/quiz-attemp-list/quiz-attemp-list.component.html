@@ -2,17 +2,17 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="left">ID</th>
+        <th class="left">User</th>
         <th class="left">Answered</th>
         <th class="left">Status</th>
         <th class="left">Score</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="selectable" *ngFor="let attempt of attempts">
-        <td class="left">{{ attempt.id }}</td>
-        <td class="left">{{ getFinishedQuestionCount(attempt) }}/{{ attempt.attemptAnswers.length }}</td>
-        <td class="left">{{ attempt.status === 'inProgress' ? 'In Progress' : 'Finished' }}</td>
+      <tr [ngClass]="{ 'selectable': isOwnAttempt(attempt.user.username), 'not-selectable': !isOwnAttempt(attempt.user.username) }" class="selectable" *ngFor="let attempt of attempts">
+        <td class="left">{{ attempt.user.username }}</td>
+        <td class="left">{{ getFinishedQuestionCount(attempt) }}/{{ attempt.questions.length }}</td>
+        <td class="left">{{ attempt.finishedAt === null ? 'In Progress' : 'Finished' }}</td>
         <td class="left">{{ getQuizScore(attempt) }}</td>
       </tr>
     </tbody>

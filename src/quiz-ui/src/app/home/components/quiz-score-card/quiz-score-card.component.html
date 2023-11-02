@@ -2,7 +2,7 @@
   <div class="header-section">
     <h4> {{ title }} </h4>
   </div>
-  <div class="content">
+  <div class="content" *ngIf="score !== undefined">
     <span> {{ score }} Points </span>
   </div>
   <div class="actions">

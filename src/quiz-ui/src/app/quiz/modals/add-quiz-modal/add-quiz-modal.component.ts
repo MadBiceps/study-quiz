@@ -19,14 +19,15 @@ export class AddQuizModalComponent {
     questionCount: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
-    createdBy: {
+    creator: {
       username: '',
       mail: '',
     },
     updatedBy: {
       username: '',
       mail: '',
-    }
+    },
+    attempts: []
   };
 
   public onAdd() {

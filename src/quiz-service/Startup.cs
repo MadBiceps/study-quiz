@@ -98,7 +98,8 @@ public class Startup
         if (!env.IsDevelopment())
         {
             app.UseCors(
-                options => options.WithOrigins(Configuration.GetValue<string>("Host") ?? "localhost:4200")
+                options => options
+                    .WithOrigins(Configuration.GetValue<string[]>("Host") ?? new[] { "localhost:4200", "localhost:5152" })
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());
@@ -106,7 +107,8 @@ public class Startup
         else
         {
             app.UseCors(
-                options => options.WithOrigins("localhost:4200")
+                options => options
+                    .WithOrigins("http://localhost:4200", "http://localhost:5152")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials());

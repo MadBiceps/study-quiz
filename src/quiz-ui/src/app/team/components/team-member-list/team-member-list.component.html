@@ -2,7 +2,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="left">ID</th>
         <th class="left">Username</th>
         <th class="left">E-Mail</th>
         <th class="left">Join Date</th>
@@ -10,7 +9,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let member of members">
-        <td class="left"> {{ member.id }} </td>
         <td class="left"> {{ member.username }} </td>
         <td class="left"> {{ member.mail }} </td>
         <td class="left"> {{ member.joined | date }} </td>

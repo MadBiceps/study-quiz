@@ -7,11 +7,15 @@ public class AttemptAnswer
     [Key]
     public Guid Id { get; set; }
 
+    public Guid AttemptQuestionId { get; set; }
+
     public virtual Answer Answer { get; set; }
     
     public virtual QuizAttempt QuizAttempt { get; set; }
     
+    public virtual AttemptQuestion AttemptQuestion { get; set; }
+    
     public DateTime AnsweredAt { get; set; }
     
-    public bool Score { get; set; }
+    public int Score { get; set; }
 }

@@ -54,8 +54,11 @@ services:
       - "traefik.http.routers.quiz-service-http.rule=Host(`study-quiz.com`)&& Pathprefix(`/api/`)"
       - "traefik.http.routers.quiz-service-http.entrypoints=web"
       - "traefik.http.routers.quiz-service-http.middlewares=redirect-to-https@file"
+    environment:
+      - QUIZ-API__Database_ConnectionString=User ID=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Host=service_db;Port=5432;Database=appstore;
     networks:
       - routing
+      - service_db_net
 
   service_db:
     image: postgres:15

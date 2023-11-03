@@ -64,7 +64,7 @@ public class Startup
                 ValidateAudience = true,
                 ValidAudience = Configuration["JWT:ValidAudience"],
                 ValidIssuer = Configuration["JWT:ValidIssuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"] ?? "122eec266463b500b8dd7819f0ce84e0d2f3302c13bb08746d52bdc210bce93c"))
             };
         });
         

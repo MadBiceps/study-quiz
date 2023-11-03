@@ -58,7 +58,7 @@ services:
       - QUIZ-API__Database_ConnectionString=User ID=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Host=service_db;Port=5432;Database=appstore;
       - QUIZ-API__JWT_ValidIssuer=https://study-quiz.com
       - QUIZ-API__JWT_ValidAudience=https://study-quiz.com
-      - QUIZ-API__JWT_SecretKey=${JWT_SECRET_KEY}
+      - QUIZ-API__JWT_Secret=${JWT_SECRET_KEY}
     networks:
       - routing
       - service_db_net

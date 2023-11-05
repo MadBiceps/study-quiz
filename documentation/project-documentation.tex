@@ -1,7 +1,11 @@
 \documentclass{article}
 \usepackage{graphicx}
-\title{Project Dokumentation}
-\author{Fabian Fischer}
+\usepackage[ngerman]{babel}
+\usepackage{float}
+\selectlanguage{german}
+
+\title{MS4 Ergebnisdokumentation \\[1ex] \large Projekt: \textit{Konzeption und prototypische Umsetzung eines kooperativen und kollaborativen Online Quizsystems}}
+\author{Fabian Fischer \\[1ex] Torben Kuls \\[1ex] Nico Thelen \\[1ex] Nobert Fekete \\[1ex] Betreuer: Dr. Tobias Brückmann }
 \date{\today}
 
 \begin{document}
@@ -9,10 +13,9 @@
 
 \pagebreak
 \tableofcontents
+
+\input{history}
 \pagebreak
-
-\section{Einführung}
-
-Hello World
-
+\input{system-overview}
+\input{user-interface}
 \end{document}

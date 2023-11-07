@@ -1,0 +1,228 @@
+\subsubsection{Usecase: Benutzer Registieren}
+
+Der Use Case 'Benutzer Registieren' beschreibt den Prozess, bei dem ein neuer Benutzer sich in das System einträgt, 
+um darauf zugreifen und die Funktionalitäten des Systems nutzen zu können. Die Registrierung ist 
+notwendig, um die Identität des Benutzers zu etablieren und ihm die Möglichkeit zu geben, 
+personalisierte Aktionen im System durchzuführen. Während des Registrierungsprozesses gibt der 
+Benutzer persönliche Informationen an, wie seinen Benutzernamen, eine E-Mail-Adresse und ein 
+Passwort. Nachdem die Registrierung erfolgreich abgeschlossen wurde, erhält der Benutzer 
+Zugriff auf das System und kann die Funktionalitäten nutzen.
+
+\subsubsection*{Vorbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer hat eine aktive Internetverbindung und hat einen Webbrowser installiert.
+  \item Das System ist verfügbar und erlaubt Benutzerregistrierungen..
+\end{itemize}
+
+\subsubsection*{Erfolgsablauf}
+
+\begin{enumerate}
+  \item Der Benutzer navigiert zur Registrierungsseite des Systems.
+  \item Der Benutzer gibt die erforderlichen Registrierungsinformationen ein, einschließlich Name, E-Mail-Adresse und Passwort.
+  \item Das System validiert die eingegebenen Daten und überprüft, ob die E-Mail-Adresse und der Benutzernamen eindeutig ist und den Anforderungen entspricht.
+  \item Das System erstellt ein Benutzerkonto und speichert die Registrierungsinformationen in der Datenbank.
+  \item Der Benutzer erhält eine Bestätigung über die erfolgreiche Registrierung und kann sich nun im System anmelden.
+\end{enumerate}
+
+\subsubsection*{Alternative Abläufe}
+
+\begin{itemize}
+  \item Falls die eingegebenen Informationen unvollständig oder ungültig sind, wird der Benutzer aufgefordert, die Informationen zu korrigieren
+   und den Registrierungsvorgang erneut zu starten.
+\end{itemize}
+
+\subsubsection*{Nachbedingungen}
+
+\begin{itemize}
+  \item Das System hat ein neues Benutzerkonto erstellt und die Registrierungsinformationen in der Datenbank gespeichert.
+  \item Der Benutzer kann sich nun mit seinem Benutzernamen und Passwort im System anmelden.
+  \item Der Benutzer kann nun die Funktionalitäten des Systems nutzen.
+\end{itemize}
+
+\subsubsection{Usecase: Benutzer Anmelden}
+
+Der Use Case 'Benutzer Anmelden' beschreibt den Prozess, bei dem ein bereits registrierter Benutzer sich in das System einloggt,
+um Zugriff auf seine personalisierten Funktionen und Daten zu erhalten. Die Anmeldung ermöglicht es dem Benutzer, 
+sein Konto zu authentifizieren und sich im System zu identifizieren, um das System vollumfänglich nutzen zu können.
+
+\subsubsection*{Vorbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer hat eine aktive Internetverbindung und hat einen Webbrowser installiert.
+  \item Der Benutzer hat bereits ein Benutzerkonto im System erstellt.
+  \item Das System ist verfügbar und erlaubt Benutzeranmeldungen.
+\end{itemize}
+
+\subsubsection*{Erfolgsablauf}
+
+\begin{enumerate}
+  \item Der Benutzer befindet sich auf Anmeldeseite des Systems.
+  \item Der Benutzer gibt seinen Benutzernamen und sein Passwort ein.
+  \item Das System validiert die eingegebenen Daten und überprüft, ob die E-Mail-Adresse und der Benutzernamen eindeutig ist und den Anforderungen entspricht.
+  \item Das System authentifiziert den Benutzer und erstellt eine Sitzung.
+  \item Der Benutzer erhält eine Bestätigung über die erfolgreiche Anmeldung und kann nun die Funktionalitäten des Systems nutzen.
+\end{enumerate}
+
+\subsubsection*{Alternative Abläufe}
+
+\begin{itemize}
+  \item Falls die eingegebenen Informationen unvollständig oder ungültig sind, wird der Benutzer aufgefordert, die Informationen zu korrigieren
+   und den Anmeldevorgang erneut zu starten.
+\end{itemize}
+
+\subsubsection*{Nachbedingungen}
+
+\begin{itemize}
+  \item Das System hat eine Sitzung für den Benutzer erstellt.
+  \item Der Benutzer kann nun die Funktionalitäten des Systems unter einer Identität nutzen.
+\end{itemize}
+
+\subsubsection{Usecase: Team erstellen \& beitretten}
+
+Der Use Case 'Team erstellen \& beitretten' beschreibt den Prozess, bei dem Benutzer Teams erstellen und ihnen beitreten können, um gemeinsam an 
+kollaborativen Aktivitäten innerhalb des Systems teilzunehmen. Jeder Benutzer kann einem Team beitreten, wobei nur der Eigentümer (Team Owner) eines 
+Teams das Recht hat, das Team zu bearbeiten oder zu löschen.
+
+\subsubsection*{Vorbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer hat eine aktive Internetverbindung und hat einen Webbrowser installiert.
+  \item Der Benutzer hat sich erfolgreich im System angemeldet.
+  \item Das System ist verfügbar und erlaubt das Erstellen und Beitreten von Teams.
+\end{itemize}
+
+\subsubsection*{Erfolgsablauf}
+
+\begin{enumerate}
+  \item Der Benutzer befindet sich auf der Teamseite des Systems.
+  \item Der Benutzer erstellt ein neues Team und gibt einen Namen für das Team ein.
+  \item Das System erstellt ein neues Team und speichert die Informationen in der Datenbank.
+  \item Der Benutzer erhält eine Bestätigung über die erfolgreiche Erstellung des Teams und kann nun das Team bearbeiten.
+  \item Der Benutzer kann dem Team beitreten.
+\end{enumerate}
+
+\subsubsection*{Alternative Abläufe}
+
+\begin{itemize}
+  \item Falls die eingegebenen Informationen unvollständig oder ungültig sind, wird der Benutzer aufgefordert, die Informationen zu korrigieren
+   und den Erstellungsprozess erneut zu starten.
+\end{itemize}
+
+\subsubsection*{Nachbedingungen}
+
+\begin{itemize}
+  \item Das System hat ein neues Team erstellt und die Informationen in der Datenbank gespeichert.
+  \item Der Benutzer kann nun das Team bearbeiten.
+  \item Der Benutzer kann dem Team beitreten.
+\end{itemize}
+
+\subsubsection{Usecase: Quiz erstellen}
+
+Der Use Case 'Quiz erstellen' beschreibt den Prozess, bei dem Benutzer ein Quiz erstellen können, um es mit anderen Benutzern zu teilen. 
+Dabei besteht ein Quiz aus mindestens 10 Fragen, die vom Benutzer erstellt werden müssen bevor das Quiz aufgeführt werden kann. 
+Jeder Benutzer kann das Quiz bearbeiten, wobei nur der Eigentümer (Quiz Owner) eines Quiz das Recht hat, das Quiz zu löschen.
+Bei der Erstellung einer Frage muss der Benutzer mindestens eine richtige Antwort und eine falsche Antwort angeben.
+
+\subsubsection*{Vorbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer hat eine aktive Internetverbindung und hat einen Webbrowser installiert.
+  \item Der Benutzer hat sich erfolgreich im System angemeldet.
+  \item Das System ist verfügbar und erlaubt das Erstellen von Quiz.
+\end{itemize}
+
+\subsubsection*{Erfolgsablauf}
+
+\begin{enumerate}
+  \item Der Benutzer befindet sich auf der Quiz-Übserichtsseite des Systems.
+  \item Der Benutzer erstellt ein neues Quiz und gibt einen Namen für das Quiz ein.
+  \item Das System erstellt ein neues Quiz und speichert die Informationen in der Datenbank.
+  \item Der Benutzer erhält eine Bestätigung über die erfolgreiche Erstellung des Quiz und kann nun das Quiz bearbeiten.
+  \item Der Benutzer kann dem Quiz Fragen hinzufügen.
+\end{enumerate}
+
+\subsubsection*{Alternative Abläufe}
+
+\begin{itemize}
+  \item Falls die eingegebenen Informationen unvollständig oder ungültig sind, wird der Benutzer aufgefordert, die Informationen zu korrigieren
+   und den Erstellungsprozess erneut zu starten.
+\end{itemize}
+
+\subsubsection*{Nachbedingungen}
+
+\begin{itemize}
+  \item Das System hat ein neues Quiz erstellt und die Informationen in der Datenbank gespeichert.
+  \item Der Benutzer kann nun das Quiz bearbeiten.
+  \item Der Benutzer kann dem Quiz Fragen hinzufügen.
+  \item Das Quiz kann ab 10 Fragen aufgeführt werden.
+\end{itemize}
+
+\subsubsection{Usecase: Quiz durchführen}
+
+Der Use Case 'Quiz durchführen' beschreibt den Prozess, bei dem Benutzer ein Quiz durchführen können, um ihre Kenntnisse zu testen.
+Dabei besteht ein Quiz aus mindestens 10 Fragen, weswegen ein Quiz erst gestartet werden kann, wenn es 10 Fragen enhält.
+Der Nutzer kann die Quiz-Seite jederzeit verlassen. Der letzte Stand wird immer gespeicher und auf dem Dashboard angezeigt.
+Wenn ein Quiz nicht vollumfänglich durchgeführt wurde kann es später fortgesetzt werden.
+
+\subsubsection*{Vorbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer hat eine aktive Internetverbindung und hat einen Webbrowser installiert.
+  \item Der Benutzer hat sich erfolgreich im System angemeldet.
+  \item Das System ist verfügbar und erlaubt das Durchführen von Quiz.
+  \item Das Quiz enthält mindestens 10 Fragen.
+\end{itemize}
+
+\subsubsection*{Erfolgsablauf}
+
+\begin{enumerate}
+  \item Der Benutzer befindet sich auf der Quiz-Übserichtsseite des Systems.
+  \item Der Benutzer wählt ein Quiz aus und startet es.
+  \item Das System zeigt die eine Frage an und wartet auf die Antwort des Benutzers.
+  \item Der Benutzer wählt eine Antwort aus und bestätigt seine Auswahl.
+  \item Das Quiz ist beendet und dem User wird eine Übserichtsseite angezeigt.
+\end{enumerate}
+
+\subsubsection*{Alternative Abläufe}
+
+\begin{itemize}
+  \item Falls die eingegebenen Informationen unvollständig oder ungültig sind, wird der Benutzer aufgefordert, die Informationen zu korrigieren
+   und den Erstellungsprozess erneut zu starten.
+\end{itemize}
+
+\subsubsection*{Nachbedingungen}
+
+\begin{itemize}
+  \item Das System hat die Antworten des Benutzers gespeichert.
+  \item Der Benutzer kann das Quiz jederzeit fortsetzen falls es nicht abgeschlossen wurde.
+  \item Der erreichte Score des Quiz durchgangs wurde dem User und dem Team des Users gutgeschrieben
+\end{itemize}
+
+\subsubsection{Usecase: Teams \& Nutzer vergleichen}
+
+Der Use Case 'Teams \& Nutzer vergleichen' beschreibt den Prozess, bei dem Benutzer ihre Ergebnisse mit anderen Benutzern vergleichen können.
+Dazu findet der Nutzer auf seinem Dashboard eine Übersicht über seine Ergebnisse und eine Rangliste der Teams und User. 
+Dies soll den Nutzer ermutigen mehr Quizze zu lösen.
+
+\subsubsection*{Vorbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer hat eine aktive Internetverbindung und hat einen Webbrowser installiert.
+  \item Der Benutzer hat sich erfolgreich im System angemeldet.
+  \item Das System ist verfügbar und erlaubt das zugreifen auf das Dashboard.
+\end{itemize}
+
+\subsubsection*{Erfolgsablauf}
+
+\begin{enumerate}
+  \item Der Benutzer befindet sich auf der Dashboard-Übserichtsseite des Systems.
+  \item Der Benutzer sieht seine Ergebnisse und die Rangliste der Teams und User.
+\end{enumerate}
+
+\subsection*{Nachbedingungen}
+
+\begin{itemize}
+  \item Der Benutzer kann seine Ergebnisse mit anderen Benutzern vergleichen.
+  \item Der Benutzer kann seine Ergebnisse mit anderen Teams vergleichen.
+\end{itemize}

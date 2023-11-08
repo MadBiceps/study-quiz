@@ -217,32 +217,52 @@ Die Verwendung von DTOs bietet eine Reihe von Vorteilen:
 
 \subsection{Kommunikation zwischen Frontend und Backend}
 
-Das Backend und das Frontend kommunizieren über das HTTP Protokoll und verwendet zur als interface eine API-Schnittstelle.
-Im folgenden wird zuerst erklärt, wie diese Kommunikation funktioniert und wie diese Daten dann im Backend verarbeitet werden.
+Das Backend und das Frontend kommunizieren miteinander über das HTTP-Protokoll und nutzen 
+eine API-Schnittstelle als Schnittstelle. Im Folgenden wird zunächst erläutert, wie diese 
+Kommunikation funktioniert und wie die übertragenen Daten im Backend verarbeitet werden.
 
 \subsubsection{Kommunikations Schnittstelle}
 
-Die Kommunikation zwischen Backend und Frontend funktioniert über das HTTP Protokoll.
-Dabei gehen die Anfragen immer vom Client and den Server. Der Server Antwortet entsprechend zu der Anfrage.
-Im generellen unterscheidet man zwischen 4 verschiedene requests. Diese Request Typen sind wie folgt:
+Die Kommunikation zwischen Backend und Frontend erfolgt über das HTTP-Protokoll. 
+In diesem Kommunikationsablauf gehen die Anfragen stets vom Client zum Server. 
+Der Server antwortet entsprechend auf die gestellten Anfragen.
+
+Generell lassen sich vier verschiedene Arten von Anfragen unterscheiden. Diese Anfragetypen 
+sind wie folgt:
 
 \begin{itemize}
-\item \textbf{GET-Requests:} Diese Requests werden verwendet um Daten abzurufen.
+\item \textbf{GET-Requests:} Dieser Request-Typ wird verwendet um Daten abzurufen.
 \item \textbf{POST-Request:} Dieser Request-Typ wird verwendet um neue Dinge anzulegen.
 \item \textbf{PUT-Requests:} Dieser Request-Typ wird genutzt um Elemente upzudaten
-\item \textbf{PATCH-Requests:}
+\item \textbf{PATCH-Requests:} Dieser Request-Typ ersezt nur bestimmte Felder eines Elements.
 \item \textbf{DELETE-Requests:} Diese Request-Typ wird verwendet um Elemente zu löschen.
 \end{itemize}
 
-\noindent Die Request Methode steht im Header der HTTP Anfrage. Über diese Methoden ist es mögliche einen
-API Pfad mehrfach zu belegen. \newline
+\noindent Die Request-Methode steht im Header der HTTP-Anfrage und spielt eine entscheidende 
+Rolle bei der Interaktion mit der API. Durch die Auswahl der richtigen Methoden ist es möglich, 
+denselben API-Pfad für verschiedene Zwecke zu verwenden. Dies trägt zur Flexibilität und 
+Effizienz bei, da unterschiedliche Anfragen mit denselben Endpunkten verarbeitet werden können.\newline
 
-\noindent Der REST-Standart beschreibt wie man API Schnittstellen logisch und nachvollziebar aufbauen muss.
-Dabei werden Pfad Pattern aber auch Request-Typen vorgeschrieben. Nach diesem REST-Standard haben wir die API
-für das Quiz Projekt erstellt. Dies ist vor allem im Bezug auf wartbarkeit sehr wichtig. Außerdem ermöglicht
-eine klare API Schnittstellen Definition, dass andere Entwickler andere Oberfläche für unsere API Schnittstelle bauen können (Mobile APPs).
+\noindent Der REST-Standard (Representational State Transfer) bietet klare Richtlinien für den 
+Aufbau von API-Schnittstellen, die logisch und nachvollziehbar strukturiert sind. Dieser Standard 
+legt nicht nur die Verwendung von Pfadmustern, sondern auch die Verwendung bestimmter 
+Request-Typen fest. Bei der Entwicklung des Quiz-Projekts haben wir uns an diesen REST-Standard 
+gehalten, um sicherzustellen, dass unsere API gut strukturiert ist. \newline
+
+\noindent Die Beachtung des REST-Standards ist besonders wichtig in Bezug auf die Wartbarkeit 
+unserer Anwendung. Eine klare und einheitliche API-Schnittstellendefinition erleichtert die 
+Wartung und Aktualisierung der Anwendung erheblich. Darüber hinaus ermöglicht eine konsistente 
+API-Schnittstelle anderen Entwicklern, verschiedene Oberflächen für unsere API zu erstellen, 
+einschließlich mobiler Apps. Dies fördert die Interoperabilität und eröffnet neue Möglichkeiten 
+für die Nutzung der Anwendung auf verschiedenen Plattformen. Die Einhaltung des REST-Standards 
+trägt somit zur Erweiterbarkeit und Zugänglichkeit unserer Anwendung bei.
+
 
 \subsubsection{API-Schnittstellen}
+
+Die nachfolgende Abbildung zeigt die API-Endpunkte für den Authentifizierungs-Endpoint und den Quiz-Endpoint.
+
+\noindent Bei dem Quiz-Endpoint
 
 \begin{figure}[H]
   \centering
@@ -250,6 +270,27 @@ eine klare API Schnittstellen Definition, dass andere Entwickler andere Oberflä
   \caption{Auth \& Quiz API Endpoint Definition}
 \end{figure}
 
+\noindent Im Authentifizierungs-Endpoint gibt es zwei Routen. Die erste Route dient dem 
+Login-Prozess, bei dem Benutzer ihre Anmeldeinformationen übermitteln können. Wenn die 
+eingegebenen Daten korrekt sind, wird als Antwort ein JWT-Token (JSON Web Token) ausgegeben. 
+Dieser Token ermöglicht den Zugriff auf die geschützten API-Endpunkte. Bei jeder Anfrage an 
+diese geschützten Endpunkte wird der Token im HTTP-Header mitgesendet, um die Authentizität des 
+Benutzers zu gewährleisten. \newline
+
+\noindent Die zweite Route ist der Registrierungs-Endpoint, der es Benutzern ermöglicht, 
+sich in der Anwendung zu registrieren. Für die Registrierung sind ein Benutzername, eine 
+E-Mail-Adresse und ein Passwort erforderlich. Nach erfolgreicher Registrierung wird eine 
+entsprechende Bestätigung als Antwort zurückgegeben. Anschließend können sich Benutzer mit den 
+zuvor gewählten Anmeldeinformationen am Login-Endpoint anmelden, und ihnen wird ein gültiger 
+Authentifizierungstoken zur Verfügung gestellt. \newline
+
+\warningbox{Bevor das System in den Produktivbetrieb übergeht, ist es empfehlenswert,
+eine Validierung der E-Mail-Adressen zu implementieren, um Spam-Registrierungen zu verhindern.
+In dieser prototypischen Umsetzung wurde bewusst auf diese Validierung verzichtet. 
+Diese Validierung der E-Mail-Adresse kann auch mit ASP.NET IdentityUser implementiert werden.}
+
+\noindent Die folgenden Abbildung stellt die API-Endpunkte für den Quiz-Attempt-Endpoint und den 
+Quiz-Question-Endpoint dar. Auf diese wird nachfolgend näher eingegangen.
 
 \begin{figure}[H]
   \centering
@@ -257,7 +298,26 @@ eine klare API Schnittstellen Definition, dass andere Entwickler andere Oberflä
   \caption{Quiz Attempt \& Quiz Question Endpoint Definition}
 \end{figure}
 
+\noindent Die ersten beiden Anfragen im Quiz-Attempt-Endpoint dienen der Erstellung und 
+dem Abruf von Quiz-Versuchen für den angefragten Benutzer. Wenn ein Quiz-Versuch erstellt 
+wird, wird dieser auch dem aktuell angemeldeten Benutzer zugeordnet, der über den 
+Authentifizierungstoken identifiziert werden kann. \newline
 
+\noindent Die dritte Anfrage ermöglicht den Abruf eines spezifischen Versuchs anhand seiner eindeutigen ID,
+während die vierte Anfrage alle Quiz-Versuche eines Teams zurückgibt. Die fünfte Anfrage liefert alle 
+Quiz-Versuche eines bestimmten Quizzes. \newline
+
+\noindent Der letzte Request dient der Aktualisierung eines Quiz-Versuchs, was dann erforderlich ist,
+ wenn ein Benutzer das Quiz tatsächlich durchführt und Änderungen am Versuch erforderlich sind. \newline
+
+ \noindent Die Quiz-Question-Endpoints enthalten klassischerweise die CRUD-Operationen
+(Create, Read, Update, Delete) für Fragen. Die erste Anfrage ermöglicht den Abruf aller Fragen, die zu einem 
+bestimmten Quiz gehören. Die zweite Anfrage dient der Erstellung einer neuen Frage. Die dritte Anfrage 
+erlaubt den gezielten Abruf einer Frage anhand ihrer eindeutigen ID. Die vierte Anfrage ermöglicht die 
+Aktualisierung einer vorhandenen Frage. Die fünfte Anfrage schließlich gestattet die Löschung einer Frage.\newline
+
+\noindent In der folgenden Abbildung werden die API-Endpunkte für den Team-Endpoint und der Score-Endpoint dargestellt.
+Auf diese Endpunkte wird nachfolgend näher eingegangen.
 
 \begin{figure}[H]
   \centering
@@ -265,6 +325,15 @@ eine klare API Schnittstellen Definition, dass andere Entwickler andere Oberflä
   \caption{User \& Score API Endpoint Definition}
 \end{figure}
 
+\noindent Die Team-Endpoints enthalten klassischerweise die CRUD-Operationen (Create, Read, Update, Delete) für Teams. 
+In dieser Dokumentation werden wir nicht näher auf diese Operationen eingehen. Der letzte Endpoint in der Gruppe der Team-Endpoints 
+dient dem Abruf des Team-Scores. Dieser Score wird in der Benutzeroberfläche im Team-Dashboard angezeigt. \newline
+
+\noindent Die Score-Endpoints bieten Endpunkte zur Berechnung der Punktzahlen für Quizze und Benutzer. 
+Darüber hinaus ermöglichen sie den Abruf von Team- und Benutzer-Leaderboards. \newline
+
+\noindent Die nachfolgend Abbildung zeigt die API-Endpunkte für den User-Endpoint, den Team-User-Endpoint und den Health-Endpoint.
+Diese werden nachfolgend erläutert.
 
 \begin{figure}[H]
   \centering
@@ -272,11 +341,43 @@ eine klare API Schnittstellen Definition, dass andere Entwickler andere Oberflä
   \caption{Team \& Team-User API Endpoint Definition}
 \end{figure}
 
+\noindent Die Team-User Endpoints werden verwendet um User einem Team hinzuzufügen oder zu entfernen. 
+Außerdem können alle User eines Teams abgerufen werden. \newline
+
+\noindent Die User-Endpoints enthält nur einen Endpoint, der den aktuellen User zurückgibt. \newline
+
+\noindent Der Health-Endpoint dient der Überprüfung der Erreichbarkeit des Backends und kann 
+vom einem Monitoring System aufgerufen werden.
+
 \subsubsection{Datenflow im Backend}
+
+In einer ASP.NET API-Anwendung wird jede Anfrage an einen API-Endpunkt von einem sogenannten 
+Controller verarbeitet. Die Definition des Controllers ist entscheidend für die Verarbeitung 
+der Anfrage und die Festlegung der API-Route. Bevor jedoch eine Anfrage den Controller erreicht, 
+werden bestimmte Prüfungen von sogenannter Middleware durchgeführt. \newline
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.9\textwidth]{img/Backend-Flow.png}
-  \caption{Flow Diagramm API Request}
+  \includegraphics[width=0.9\textwidth]{img/API-Sequence-Diagramm.png}
+  \caption{Sequence Diagramm for API Request}
 \end{figure}
 
+\noindent Die Middleware ist eine Komponente, die in der Verarbeitungspipeline zwischen verschiedenen 
+Aufgaben agiert. Wie in der Abbildung ersichtlich, wird zunächst eine Anfrage vom Client an den Server 
+gesendet. Am Server wird die Anfrage validiert, insbesondere in Bezug auf das enthaltene Datenmodell,
+den Request-Body und die Request-Header.Im nächsten Schritt erfolgt die Umwandlung des Requests mit 
+JSON-Daten in ein C\# Objekt, um die Verarbeitung im Controller zu ermöglichen. Anschließend erfolgt eine 
+optionale Authentifizierung, die überprüft, ob die Anfrage von einem authentifizierten Benutzer stammt.
+Erst nach erfolgreicher Authentifizierung erreicht die Anfrage den Controller und kann von diesem verarbeitet 
+werden. \newline
+
+\noindent Bei der Strukturierung eines ASP.NET API-Projekts gibt es verschiedene Ansätze zur Organisation der 
+Verarbeitung von Anfragen. In diesem Projekt wurde die Entscheidung getroffen, dass der Controller für d
+as Mapping der eingehenden DTO-Objekte auf die Backend-Modelle und die Autorisierungsvalidierung 
+verantwortlich ist. Die eigentliche Verarbeitung der Anfrage erfolgt in sogenannten Services.
+
+\noindent Ein Service ist eine Klasse, die eine spezifische Aufgabe erfüllt. In diesem Projekt sind 
+Services für verschiedene Objekte implementiert. Im Service wird ausschließlich mit den Backend-Modellen 
+gearbeitet, und der Zugriff auf die Datenbank erfolgt nur dort.
+
+\noindent Im Service findet die tatsächliche Verarbeitung der Anfrage statt, einschließlich der Rückgabe der Daten.

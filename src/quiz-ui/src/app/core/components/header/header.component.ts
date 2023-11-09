@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
   public searchTerm = '';
-  public username = '';
+  public username: string | undefined;
 
   constructor(
     private router: Router,
@@ -19,9 +19,12 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userService.getCurrentUserInfo().subscribe(resp => {
-      if(resp != null)
+    this.userService.currentUser$.subscribe(resp => {
+      if(resp != null) {
         this.username = resp.username;
+      } else {
+        this.username = undefined;
+      }
     });
   }
 

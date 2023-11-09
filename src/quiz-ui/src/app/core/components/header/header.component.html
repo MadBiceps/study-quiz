@@ -19,7 +19,7 @@
     </label>
   </form>
   <div *ngIf="displayNav" class="header-actions">
-    <clr-dropdown>
+    <clr-dropdown *ngIf="username !== undefined">
       <button class="nav-text" clrDropdownTrigger aria-label="open user profile">
         {{ username }}
         <cds-icon shape="angle" direction="down"></cds-icon>

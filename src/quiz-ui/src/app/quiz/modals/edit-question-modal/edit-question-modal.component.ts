@@ -67,9 +67,11 @@ export class EditQuestionModalComponent {
 
   public onClose() {
     this.close.emit();
+
   }
 
   public onUpdate() {
     this.update.emit(this.question as Question);
   }
+
 }

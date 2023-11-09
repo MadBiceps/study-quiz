@@ -32,9 +32,32 @@ export class AddQuizModalComponent {
 
   public onAdd() {
     this.add.emit(this.quiz);
+    this.reset();
   }
 
   public onClose() {
     this.close.emit();
+    this.reset();
+  }
+
+  private reset() {
+    this.quiz = {
+      id: '',
+      title: '',
+      description: '',
+      questions: [],
+      questionCount: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      creator: {
+        username: '',
+        mail: '',
+      },
+      updatedBy: {
+        username: '',
+        mail: '',
+      },
+      attempts: []
+    };
   }
 }

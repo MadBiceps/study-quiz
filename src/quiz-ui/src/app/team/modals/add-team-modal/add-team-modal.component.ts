@@ -28,9 +28,28 @@ export class AddTeamModalComponent {
 
   public onClose(): void {
     this.close.emit();
+    this.reset();
   }
 
   public onAddTeam(): void {
     this.addTeam.emit(this.team);
+    this.reset();
+  }
+
+  private reset() {
+    this.team = {
+      id: '',
+      name: '',
+      createdAt: new Date(),
+      creator: {
+        username: '',
+        mail: ''
+      },
+      memberCount: 0,
+      maxMemberCount: 0,
+      members: undefined,
+      scores: [],
+      currentScore: 0
+    }
   }
 }

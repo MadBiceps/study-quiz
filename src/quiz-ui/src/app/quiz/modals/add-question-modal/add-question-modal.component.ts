@@ -83,9 +83,30 @@ export class AddQuestionModalComponent {
 
   public onClose() {
     this.close.emit();
+    this.reset();
   }
 
   public onAdd() {
     this.add.emit(this.question);
+    this.reset();
   }
+
+  private reset() {
+    this.question = {
+      id: '',
+      label: '',
+      hint: '',
+      answers: [],
+      creator: {
+        username: '',
+        mail: '',
+      },
+      createdAt: new Date(),
+      editedBy: {
+        username: '',
+        mail: '',
+      },
+      editedAt: new Date(),
+    };
+  } 
 }

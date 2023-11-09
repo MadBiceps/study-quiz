@@ -38,7 +38,8 @@
   <app-update-quiz-modal [open]="showUpdateModal" [quiz]="quiz" (update)="update($event)" (close)="close()" />
   <app-delete-quiz-modal [open]="showDeleteModal" [quiz]="quiz" (delete)="deleteQuiz()" (close)="close()" />
   <app-add-question-modal [open]="showAddQuestionModal" (add)="createQuestion($event)" (close)="close()" />
-  <app-edit-question-modal [open]="showUpdateQuestionModal" [question]="selectedQuestion" (update)="updateQuestion($event)" (close)="close()" />
+  <app-edit-question-modal [open]="showUpdateQuestionModal" [question]="selectedQuestion" 
+    (update)="updateQuestion($event)" (delete)="deleteQuestion($event)" (close)="close()" />
 </div>
 
 <ng-template #loading>

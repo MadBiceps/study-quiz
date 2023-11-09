@@ -11,6 +11,7 @@ export class EditQuestionModalComponent {
   @Input() public question: Question | undefined;
   @Output() public close: EventEmitter<void> = new EventEmitter();
   @Output() public update: EventEmitter<Question> = new EventEmitter();
+  @Output() public delete: EventEmitter<Question> = new EventEmitter();
 
   public answer: Answer = {
     id: '',
@@ -72,6 +73,10 @@ export class EditQuestionModalComponent {
 
   public onUpdate() {
     this.update.emit(this.question as Question);
+  }
+
+  public onDelete() {
+    this.delete.emit(this.question as Question);
   }
 
 }

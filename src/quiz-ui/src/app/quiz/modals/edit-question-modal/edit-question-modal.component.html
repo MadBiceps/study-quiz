@@ -1,4 +1,3 @@
-
 <div class="modal-wrapper" *ngIf="question">
   <clr-modal [(clrModalOpen)]="open" [clrModalClosable]="false">
     <h3 class="modal-title">Edit a Question of a Quiz</h3>
@@ -40,7 +39,8 @@
                 <label>Correct Answer</label>
               </clr-toggle-wrapper>
             </clr-toggle-container>
-            <button type="button" class="btn btn-primary" [disabled]="answer.label === ''" (click)="addAnswer()">Add Answer</button>
+            <button type="button" class="btn btn-primary" [disabled]="answer.label === ''" (click)="addAnswer()">Add
+              Answer</button>
           </div>
 
           <div class="awnser-list">
@@ -70,8 +70,10 @@
       </form>
     </div>
     <div class="modal-footer">
+      <button type="button" class="btn btn-danger-outline" (click)="onDelete()">Delete</button>
       <button type="button" class="btn btn-outline" (click)="onClose()">Cancel</button>
-      <button type="button" class="btn btn-primary" [disabled]="question.label === '' || !checkAnswers()" (click)="onUpdate()">Save</button>
+      <button type="button" class="btn btn-primary" [disabled]="question.label === '' || !checkAnswers()"
+        (click)="onUpdate()">Save</button>
     </div>
   </clr-modal>
 </div>

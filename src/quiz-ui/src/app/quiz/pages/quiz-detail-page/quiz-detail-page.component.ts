@@ -118,4 +118,16 @@ export class QuizDetailPageComponent implements OnInit {
       })
     }
   }
+
+  deleteQuestion(question: Question) {
+    if (this.quiz !== undefined) {
+      this.showUpdateQuestionModal = false;
+      this.quizQuestionService.delete(this.quiz.id, question.id).subscribe(_ => {
+        this.quizService.getById(this.quiz!.id).subscribe(resp => {
+          if (resp !== null)
+            this.quiz = resp;
+        })
+      })
+    }
+  }
 }

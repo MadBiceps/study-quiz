@@ -28,7 +28,11 @@ public class AuthController : ApiController
     public async Task<IActionResult> Login([FromBody] LoginDTO model)
     {
         var user = await _userManager.FindByNameAsync(model.Username);
-        if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password)) return Unauthorized();
+        if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password)) return NotFound(new ResponseDTO
+        {
+            Message = "Username or Password not correct",
+            Status = "404"
+        });
         var userRoles = await _userManager.GetRolesAsync(user);
 
         var authClaims = new List<Claim>
@@ -61,7 +65,7 @@ public class AuthController : ApiController
     {
         var userExists = await _userManager.FindByNameAsync(model.Username);
         if (userExists != null)
-            return StatusCode(StatusCodes.Status500InternalServerError,
+            return StatusCode(StatusCodes.Status400BadRequest,
                 new ResponseDTO { Status = "Error", Message = "User already exists!" });
 
         ApplicationUser user = new ApplicationUser()
@@ -72,7 +76,7 @@ public class AuthController : ApiController
         };
         var result = await _userManager.CreateAsync(user, model.Password);
         return !result.Succeeded
-            ? StatusCode(StatusCodes.Status500InternalServerError,
+            ? StatusCode(StatusCodes.Status400BadRequest,
                 new ResponseDTO
                     { Status = "Error", Message = result.Errors.First().Description })
             : Ok(new ResponseDTO { Status = "Success", Message = "User created successfully!" });

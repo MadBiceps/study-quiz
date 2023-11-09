@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth-service.service';
 
@@ -34,6 +33,8 @@ export class RegisterPageComponent {
       } else {
         this.error = x.message;
       }
+    }, error => {
+      this.error = error.error.message;
     });
   }
 
@@ -71,10 +72,17 @@ export class RegisterPageComponent {
         return;
       }
 
-      // Check special character
-      if (this.form.password.search(/[!@#$%^&*0-9]/) < 0) {
+      // Check number
+      if (this.form.password.search(/[0-9]/) < 0) {
         this.valid = false;
-        this.validError = 'Please use a password with a special character or a number inside';
+        this.validError = 'Passwords must have at least one digit.';
+        return;
+      }
+
+      // Check special character
+      if (this.form.password.search(/[!@#$%^&*]/) < 0) {
+        this.valid = false;
+        this.validError = 'Passwords must have at least one non alphanumeric character.';
         return;
       }
 

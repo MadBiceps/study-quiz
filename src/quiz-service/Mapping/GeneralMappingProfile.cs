@@ -87,7 +87,7 @@ public class GeneralMappingProfile : Profile
 
         CreateMap<Question, QuestionDTO>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))
-            .ForMember(dest => dest.Label, opt => opt.MapFrom(x => x.Hint))
+            .ForMember(dest => dest.Label, opt => opt.MapFrom(x => x.Label))
             .ForMember(dest => dest.Hint, opt => opt.MapFrom(x => x.Hint))
             .ForMember(dest => dest.Answers, opt => opt.MapFrom(x => x.Answers))
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(x => x.CreatedAt))

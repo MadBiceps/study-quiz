@@ -14,7 +14,7 @@ public class ScoreController : ApiController
     private readonly IScoreService _scoreService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
-    
+
     public ScoreController(IScoreService scoreService, UserManager<ApplicationUser> userManager, IMapper mapper)
     {
         _scoreService = scoreService;
@@ -54,7 +54,9 @@ public class ScoreController : ApiController
         var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
-        var mapped = _mapper.Map<List<QuizAttemptDTO>>(currentUser.Attempts).OrderByDescending(x => x.CreatedAt);
+        var mapped = _mapper.Map<List<QuizAttemptDTO>>(currentUser.Attempts)
+            .OrderByDescending(x => x.CreatedAt)
+            .Take(10);
         return Ok(mapped);
     }
 
@@ -87,6 +89,4 @@ public class ScoreController : ApiController
             Data = _mapper.Map<TeamDTO>(x)
         }).OrderByDescending(x => x.Score));
     }
-    
-    
 }

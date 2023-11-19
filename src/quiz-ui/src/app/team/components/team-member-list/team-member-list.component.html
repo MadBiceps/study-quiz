@@ -5,6 +5,7 @@
         <th class="left">Username</th>
         <th class="left">E-Mail</th>
         <th class="left">Join Date</th>
+        <th class="left" *ngIf="isOwner"></th>
       </tr>
     </thead>
     <tbody>
@@ -12,6 +13,9 @@
         <td class="left"> {{ member.username }} </td>
         <td class="left"> {{ member.mail }} </td>
         <td class="left"> {{ member.joined | date }} </td>
+        <td class="left" *ngIf="isOwner">
+          <cds-icon class="icon" (click)="remove(member)" shape="trash"></cds-icon>
+        </td>
       </tr>
     </tbody>
   </table>

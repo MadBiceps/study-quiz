@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TeamMember } from '../../models/team.model';
 
 @Component({
@@ -8,4 +8,12 @@ import { TeamMember } from '../../models/team.model';
 })
 export class TeamMemberListComponent {
   @Input() members: TeamMember[] | undefined = [];
+  @Input() isOwner: boolean = false;
+  @Output() removeMember: EventEmitter<TeamMember> = new EventEmitter<TeamMember>();
+
+  constructor() { }
+
+  public remove(member: TeamMember) {
+    this.removeMember.emit(member);
+  }
 }

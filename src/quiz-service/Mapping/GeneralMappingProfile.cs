@@ -47,7 +47,7 @@ public class GeneralMappingProfile : Profile
             .ForMember(dest => dest.MaxMemberCount, opt => opt.MapFrom(x => 10))
             .ForMember(dest => dest.MemberCount, opt => opt.MapFrom(x => x.Member.Count(y => y.Left == null)))
             .ForMember(dest => dest.Members, opt => opt.MapFrom(x => x.Member.Where(y => y.Left == null)))
-            .ForMember(dest => dest.Scores, opt => opt.MapFrom(x => x.QuizAttempts));
+            .ForMember(dest => dest.Scores, opt => opt.MapFrom(x => x.QuizAttempts.OrderByDescending(y => y.CreatedAt).Take(10)));
 
         CreateMap<QuizAttempt, TeamScoreDTO>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))

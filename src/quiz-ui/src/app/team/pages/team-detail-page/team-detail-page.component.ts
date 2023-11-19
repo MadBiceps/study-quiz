@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Team, TeamScore } from '../../models/team.model';
-import { treeFeaturesFactory } from '@clr/angular/data/tree-view/tree-features.service';
+import { Team, TeamMember } from '../../models/team.model';
 import { TeamService } from 'src/app/services/team.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorService } from 'src/app/services/error.service';
@@ -113,6 +112,21 @@ export class TeamDetailPageComponent implements OnInit {
         });
       })
     }
+  }
+
+  onRemoveMember(member: TeamMember) {
+    this.teamUserService.remove(this.team!.id, member.username).subscribe(() => {
+      this.teamService.getById(this.team!.id).subscribe(resp => {
+        if(resp != null) {
+          this.team = resp;
+        }
+      });
+      this.userService.getCurrentUserInfo().subscribe(resp => {
+        if(resp !== null) {
+          this.user = resp;
+        }
+      });
+    });
   }
 
   openEditModal() {

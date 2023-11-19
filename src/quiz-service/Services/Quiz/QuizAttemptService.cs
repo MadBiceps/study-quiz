@@ -103,7 +103,7 @@ public class QuizAttemptService : IQuizAttemptService
             AnsweredAt = DateTime.Now,
             Id = Guid.NewGuid(),
             QuizAttempt = quizAttempt,
-            Score = answer.IsCorrect ? 10 : -5,
+            Score = answer.IsCorrect ? 5 : -3,
             AttemptQuestion = question,
             AttemptQuestionId = question.Id,
         };

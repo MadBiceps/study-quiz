@@ -170,7 +170,7 @@ export class RunQuizPageComponent implements OnInit {
   public get score() {
     let correctQuestionCount = this.correctQuestionCount;
     let incorrectQuestionCount = this.questions.length - correctQuestionCount;
-    return correctQuestionCount * 10 - incorrectQuestionCount * 5;
+    return (correctQuestionCount * 5) - (incorrectQuestionCount * 3);
   }
 
   public getQuestionCssCLass(questionId: string) {

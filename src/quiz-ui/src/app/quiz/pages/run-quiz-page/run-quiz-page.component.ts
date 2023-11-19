@@ -27,6 +27,7 @@ export interface Option {
 export class RunQuizPageComponent implements OnInit {
   public status: 'loading' | 'start' | 'finish' | 'error' | 'continue' | 'running' = 'loading';
   public questionState: 'display' | 'answer' | 'result' = 'display';
+  public inTransaction = false;
   public currentQuestionId = 0;
   public errorMessage = '';
   public attempt: QuizAttempt | undefined;
@@ -106,6 +107,10 @@ export class RunQuizPageComponent implements OnInit {
   }
 
   public onSelectAnswer(id: string) {
+    if (this.inTransaction) {
+      return;
+    }
+    this.inTransaction = true;
     if (this.questionState === 'display') {
       this.currentQuestion.options.forEach(option => {
         option.isSelected = option.id === id;
@@ -114,6 +119,9 @@ export class RunQuizPageComponent implements OnInit {
     }
 
     if(this.attempt === undefined) {
+      this.errorMessage = 'Attempt not found';
+      this.status = 'error';
+      this.inTransaction = false;
       return;
     }
 
@@ -143,8 +151,10 @@ export class RunQuizPageComponent implements OnInit {
       const question = x.find(y => y.id === this.questions[this.currentQuestionId].id);
       if (question !== undefined)
         this.questions[this.currentQuestionId] = question;
+      this.inTransaction = false;
     }, error => {
-      this.errorMessage = error;
+      this.inTransaction = false
+      this.errorMessage = error['message'];
       this.status = 'error';
     });
   }

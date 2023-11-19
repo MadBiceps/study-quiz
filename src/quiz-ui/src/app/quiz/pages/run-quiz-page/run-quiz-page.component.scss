@@ -30,6 +30,7 @@
       transition: all 0.3s ease-in-out;
       .answer-selected {
         background-color: var(--cds-alias-object-interaction-background-selected);
+        cursor: wait;
       }
       .no-answer-selected {
         background-color: var(--cds-alias-object-interaction-background);

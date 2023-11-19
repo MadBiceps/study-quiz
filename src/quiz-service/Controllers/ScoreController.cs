@@ -76,7 +76,7 @@ public class ScoreController : ApiController
                 .Where(y => y.CreatedAt.Year == DateTime.Now.Year && y.CreatedAt.Month == DateTime.Now.Month)
                 .Sum(y => y.Questions.Sum(z => z.Answer?.Score ?? 0)),
             Data = _mapper.Map<UserDTO>(x)
-        }).OrderByDescending(x => x.Position));
+        }).OrderBy(x => x.Position));
     }
 
     [Authorize]
@@ -95,6 +95,6 @@ public class ScoreController : ApiController
                 .Where(y => y.CreatedAt.Year == DateTime.Now.Year && y.CreatedAt.Month == DateTime.Now.Month)
                 .Sum(y => y.Questions.Sum(z => z.Answer?.Score ?? 0)),
             Data = _mapper.Map<TeamDTO>(x)
-        }).OrderByDescending(x => x.Position));
+        }).OrderBy(x => x.Position));
     }
 }

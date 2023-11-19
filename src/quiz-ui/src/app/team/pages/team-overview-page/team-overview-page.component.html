@@ -11,4 +11,4 @@
     <app-team-list [teams]="teams$ | async" />
   </div>
 </div>
-<app-add-team-modal [open]="addTeamOpen" (close)="onCloseAddTeam" (addTeam)="addTeam($event)" />
+<app-add-team-modal [open]="addTeamOpen" (close)="onCloseAddTeam" (addTeam)="addTeam($event)" (close)="onCloseAddTeam()" />

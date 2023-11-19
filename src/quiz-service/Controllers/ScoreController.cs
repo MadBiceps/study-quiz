@@ -67,12 +67,16 @@ public class ScoreController : ApiController
         var board = await _scoreService.GetUserLeaderboardAsync(count ?? 10);
         return Ok(board.Select(x => new LeaderboardElementDTO<UserDTO>
         {
-            Position = board.FindIndex(y => y.UserName == x.UserName) + 1,
+            Position = board.OrderByDescending(y => y.Attempts
+                .Where(a => a.CreatedAt.Year == DateTime.Now.Year && a.CreatedAt.Month == DateTime.Now.Month)
+                .Sum(a => a.Questions.Sum(b => b.Answer?.Score ?? 0)))
+                .ToList()
+                .FindIndex(y => y.UserName == x.UserName) + 1,
             Score = x.Attempts
                 .Where(y => y.CreatedAt.Year == DateTime.Now.Year && y.CreatedAt.Month == DateTime.Now.Month)
                 .Sum(y => y.Questions.Sum(z => z.Answer?.Score ?? 0)),
             Data = _mapper.Map<UserDTO>(x)
-        }).OrderByDescending(x => x.Score));
+        }).OrderByDescending(x => x.Position));
     }
 
     [Authorize]
@@ -82,11 +86,15 @@ public class ScoreController : ApiController
         var board = await _scoreService.GetTeamLeaderboardAsync(count ?? 10);
         return Ok(board.Select(x => new LeaderboardElementDTO<TeamDTO>
         {
-            Position = board.FindIndex(y => y.Id == x.Id) + 1,
+            Position = board.OrderByDescending(y => y.QuizAttempts
+                .Where(z => z.CreatedAt.Year == DateTime.Now.Year && z.CreatedAt.Month == DateTime.Now.Month)
+                .Sum(z => z.Questions.Sum(a => a.Answer?.Score ?? 0)))
+                .ToList()
+                .FindIndex(y => y.Id == x.Id) + 1,
             Score = x.QuizAttempts
                 .Where(y => y.CreatedAt.Year == DateTime.Now.Year && y.CreatedAt.Month == DateTime.Now.Month)
                 .Sum(y => y.Questions.Sum(z => z.Answer?.Score ?? 0)),
             Data = _mapper.Map<TeamDTO>(x)
-        }).OrderByDescending(x => x.Score));
+        }).OrderByDescending(x => x.Position));
     }
 }

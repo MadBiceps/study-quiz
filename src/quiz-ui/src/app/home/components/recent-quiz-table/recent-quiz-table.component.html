@@ -8,10 +8,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let quiz of quizzes">
+    <tr *ngFor="let quiz of quizzes" (click)="continueQuiz(quiz)" [ngClass]="{ 'selectable': quiz.finishedAt === null, 'not-selectable': quiz.finishedAt !== null }">
       <td class="left"> {{ quiz.quizTitle }} </td>
       <td class="left"> {{ quiz.createdAt | date }} </td>
-      <td class="left"> {{ quiz.finishedAt !== undefined ? 'Finished' : 'In Progress' }} </td>
+      <td class="left"> {{ quiz.finishedAt !== null ? 'Finished' : 'In Progress' }} </td>
       <td class="left"> {{ getScore(quiz) }} Points </td>
     </tr>
   </tbody>

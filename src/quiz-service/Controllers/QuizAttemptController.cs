@@ -35,7 +35,8 @@ public class QuizAttemptController : ApiController
         if (currentUser == null)
             return Unauthorized();
         var attempts = await _quizAttemptService.GetByUserAsync(currentUser);
-        return Ok(_mapper.Map<List<QuizAttemptDTO>>(attempts));
+        var mapped = _mapper.Map<List<QuizAttemptDTO>>(attempts);
+        return Ok(mapped);
     }
 
     [Authorize]

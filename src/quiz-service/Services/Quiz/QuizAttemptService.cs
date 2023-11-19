@@ -112,11 +112,12 @@ public class QuizAttemptService : IQuizAttemptService
 
         quizAttempt = await GetByIdAsync(quizAttemptId);
 
-        if (quizAttempt.Questions.Any(x => x.Answer == null))
-            return quizAttempt;
-        quizAttempt.FinishedAt = DateTime.Now;
-        quizAttempt = _dbContext.Update(quizAttempt).Entity;
-        await _dbContext.SaveChangesAsync();
+        if (quizAttempt.Questions.All(x => x.Answer != null))
+        {
+            quizAttempt.FinishedAt = DateTime.Now;
+            quizAttempt = _dbContext.Update(quizAttempt).Entity;
+            await _dbContext.SaveChangesAsync();
+        }
         return quizAttempt;
     }
 }

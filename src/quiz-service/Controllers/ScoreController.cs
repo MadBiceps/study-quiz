@@ -54,7 +54,8 @@ public class ScoreController : ApiController
         var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
-        return Ok(_mapper.Map<List<QuizAttemptDTO>>(currentUser.Attempts).OrderByDescending(x => x.CreatedAt));
+        var mapped = _mapper.Map<List<QuizAttemptDTO>>(currentUser.Attempts).OrderByDescending(x => x.CreatedAt);
+        return Ok(mapped);
     }
 
     [Authorize]

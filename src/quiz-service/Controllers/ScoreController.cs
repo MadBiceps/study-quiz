@@ -11,9 +11,9 @@ namespace quiz_service.Controllers;
 [Route("score")]
 public class ScoreController : ApiController
 {
-    private IScoreService _scoreService;
-    private UserManager<ApplicationUser> _userManager;
-    private IMapper _mapper;
+    private readonly IScoreService _scoreService;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IMapper _mapper;
     
     public ScoreController(IScoreService scoreService, UserManager<ApplicationUser> userManager, IMapper mapper)
     {
@@ -54,7 +54,7 @@ public class ScoreController : ApiController
         var currentUser = await _userManager.FindByNameAsync(currentUserName);
         if (currentUser == null)
             return Unauthorized();
-        return Ok(_mapper.Map<List<QuizAttemptDTO>>(currentUser.Attempts));
+        return Ok(_mapper.Map<List<QuizAttemptDTO>>(currentUser.Attempts).OrderByDescending(x => x.CreatedAt));
     }
 
     [Authorize]
@@ -69,7 +69,7 @@ public class ScoreController : ApiController
                 .Where(y => y.CreatedAt.Year == DateTime.Now.Year && y.CreatedAt.Month == DateTime.Now.Month)
                 .Sum(y => y.Questions.Sum(z => z.Answer?.Score ?? 0)),
             Data = _mapper.Map<UserDTO>(x)
-        }));
+        }).OrderByDescending(x => x.Score));
     }
 
     [Authorize]
@@ -84,7 +84,7 @@ public class ScoreController : ApiController
                 .Where(y => y.CreatedAt.Year == DateTime.Now.Year && y.CreatedAt.Month == DateTime.Now.Month)
                 .Sum(y => y.Questions.Sum(z => z.Answer?.Score ?? 0)),
             Data = _mapper.Map<TeamDTO>(x)
-        }));
+        }).OrderByDescending(x => x.Score));
     }
     
     

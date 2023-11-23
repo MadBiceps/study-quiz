@@ -11,10 +11,10 @@
     </div>
     <div class="actions">
       <button class="btn btn-primary" [disabled]="quiz.questions.length < 10" (click)="onStartQuiz()">Do the Quiz</button>
-      <button type="button" class="btn btn-icon" aria-label="edit" (click)="onUpdate()">
+      <button type="button" *ngIf="isOwner" class="btn btn-icon" aria-label="edit" (click)="onUpdate()">
         <cds-icon shape="pencil"></cds-icon>
       </button>
-      <button type="button" class="btn btn-icon" aria-label="trash" (click)="onDelete()">
+      <button type="button" *ngIf="isOwner" class="btn btn-icon" aria-label="trash" (click)="onDelete()">
         <cds-icon shape="trash"></cds-icon>
       </button>
     </div>

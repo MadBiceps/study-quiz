@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/core/models/question.model';
 import { Quiz } from 'src/app/core/models/quiz.model';
+import { User } from 'src/app/core/models/user.model';
 import { QuizAttemptService } from 'src/app/services/quiz-attempt.service';
 import { QuizQuestionService } from 'src/app/services/quiz-question.service';
 import { QuizService } from 'src/app/services/quiz.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-quiz-detail-page',
@@ -17,6 +19,7 @@ export class QuizDetailPageComponent implements OnInit {
   public showAddQuestionModal = false;
   public showUpdateQuestionModal = false;
   public selectedQuestion: Question | undefined;
+  public user: User | undefined;
 
   public quiz: Quiz | undefined;
 
@@ -25,7 +28,8 @@ export class QuizDetailPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private quizService: QuizService,
     private quizAttemptService: QuizAttemptService,
-    private quizQuestionService: QuizQuestionService
+    private quizQuestionService: QuizQuestionService,
+    private userService: UserService
   ) {
 
   }
@@ -37,6 +41,16 @@ export class QuizDetailPageComponent implements OnInit {
           this.quiz = resp;
       })
     });
+
+    this.userService.getCurrentUserInfo().subscribe(resp => {
+      if (resp !== null) {
+        this.user = resp;
+      }
+    });
+  }
+
+  get isOwner() {
+    return this.quiz?.creator.username === this.user?.username;
   }
 
   onStartQuiz() {

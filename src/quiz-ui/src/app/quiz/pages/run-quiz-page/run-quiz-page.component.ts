@@ -107,7 +107,7 @@ export class RunQuizPageComponent implements OnInit {
   }
 
   public onSelectAnswer(id: string) {
-    if (this.inTransaction) {
+    if (this.inTransaction || this.questionState === 'result' || this.questionState === 'answer') {
       return;
     }
     this.inTransaction = true;
